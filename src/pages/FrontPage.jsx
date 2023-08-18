@@ -10,7 +10,9 @@ import i8 from "../images/ac57.jpg";
 import i9 from "../images/ac58.jpg";
 import i10 from "../images/ac59.jpg";
 import str_para_1 from "../images/ac33.jpg";
-import img_at_the_bar from "../images/bar.jpg";
+import bar from "../images/bar.jpg";
+
+import "./FrontPage.css"
 
 function FrontPage(props) {
     return (
@@ -86,7 +88,7 @@ function FrontPage(props) {
                 <img src={str_para_1} alt="logo"/>
             </div>
             <div className="grid-item ">
-                <img src={img_at_the_bar} alt="logo"/>
+                <img src={bar} alt="logo"/>
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 .App {
-  border: 5px solid green;
+  /*border: 5px solid green;*/
 }
 
 .App-header {
@@ -15,7 +15,7 @@
   z-index: 100;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease-in-out;
-  border: 5px solid blue;
+  /*border: 5px solid blue;*/
 
   margin-left:20%;
   margin-right:20%;
@@ -23,14 +23,14 @@
 }
 
 .App-title {
-  border: 5px solid gray;
+  /*border: 5px solid gray;*/
 }
 
 
 /* Style the main menu */
 .main-menu {
   text-align: right;
-  border: 5px solid yellow;
+  /*border: 5px solid yellow;*/
 }
 
 /* Style the menu items */
@@ -62,7 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 5px solid red;
+  /*border: 5px solid red;*/
 }
 
 
@@ -79,32 +79,32 @@ h1 {
   line-height: 1.25;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding: 20px;
-}
+/*.grid-container {*/
+/*  display: grid;*/
+/*  grid-template-columns: repeat(3, 1fr);*/
+/*  gap: 10px;*/
+/*  padding: 20px;*/
+/*}*/
 
-.grid-item {
-  /*background-color: #ddd;*/
-  /*border: 1px solid #333;*/
-  padding: 50px;
-  text-align: center;
-}
+/*.grid-item {*/
+/*  !*background-color: #ddd;*!*/
+/*  !*border: 1px solid #333;*!*/
+/*  padding: 50px;*/
+/*  text-align: center;*/
+/*}*/
 
-.grid-item.large {
-  grid-column-end: span 2;
-  grid-row-end: span 2;
-}
+/*.grid-item.large {*/
+/*  grid-column-end: span 2;*/
+/*  grid-row-end: span 2;*/
+/*}*/
 
-.grid-item.medium {
-  grid-column-end: span 2;
-}
+/*.grid-item.medium {*/
+/*  grid-column-end: span 2;*/
+/*}*/
 
-.grid-item.threewide {
-  grid-column-end: span 3;
-}
+/*.grid-item.threewide {*/
+/*  grid-column-end: span 3;*/
+/*}*/
 
 
 img {
