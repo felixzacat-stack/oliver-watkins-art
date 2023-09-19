@@ -46,7 +46,9 @@
 .main-menu a {
   text-decoration: none;
   color: #d32f2f;
-  font-weight: bold;
+  font-family: 'roboto', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  /*font-weight: bold;*/
   transition: color 0.3s ease-in-out;
 }
 
@@ -79,12 +81,24 @@ h1 {
   line-height: 1.25;
 }
 
-/*.grid-container {*/
-/*  display: grid;*/
-/*  grid-template-columns: repeat(3, 1fr);*/
-/*  gap: 10px;*/
-/*  padding: 20px;*/
-/*}*/
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px;
+
+
+}
+
+.picture-description {
+  padding: 20px;
+  font-size: 24px;
+  /*font-family: "Poppins",sans-serif;*/
+
+  color: #6d7377;
+  font-family: 'roboto', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+}
 
 /*.grid-item {*/
 /*  !*background-color: #ddd;*!*/

@@ -5,10 +5,7 @@ import img_dogs from "../images/dogs.jpg";
 import str_parad_2 from "../images/paradise_2.jpg";
 import windmill from "../images/windmill_60_by_45.jpg";
 import img_cat_dinner from "../images/cat_dinner_50_by_60.jpg";
-// import i7 from "../images/ac56.jpg";
-// import i8 from "../images/ac57.jpg";
-// import i9 from "../images/ac58.jpg";
-// import i10 from "../images/ac59.jpg";
+
 import str_para_1 from "../images/paradise_1.jpg";
 import bar from "../images/bar_80_by_60.jpg";
 

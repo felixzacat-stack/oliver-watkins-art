@@ -28,18 +28,18 @@ function Nav(props) {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/abstract" onClick={toggleCollapse.bind(this)} className={abstractClassisActive}>
-                        Abstract
+                    <Link to="/gallery" onClick={toggleCollapse.bind(this)} className={abstractClassisActive}>
+                        Gallery
                     </Link>
                 </li>
                 <li>
-                    <Link to="/figurative" onClick={toggleCollapse.bind(this)} className={figurativeClassisActive}>
-                        Figurative
+                    <Link to="/commission" onClick={toggleCollapse.bind(this)} className={figurativeClassisActive}>
+                        Commission
                     </Link>
                 </li>
                 <li>
-                    <Link to="/portrait" onClick={toggleCollapse.bind(this)} className={portraitClassisActive}>
-                        Portrait
+                    <Link to="/purchase" onClick={toggleCollapse.bind(this)} className={portraitClassisActive}>
+                        Purchase
                     </Link>
                 </li>
                 <li>

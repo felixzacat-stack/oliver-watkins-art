@@ -5,6 +5,7 @@ import Nav from "./Nav";
 import FrontPage from "./pages/FrontPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import AbstractPage from "./pages/AbstractPage";
+import GalleryPage from "./pages/GalleryPage";
 
 function App() {
     return (
@@ -18,7 +19,7 @@ function App() {
                     <Route exact path="/" element={<FrontPage/>}/>
                 </Routes>
                 <Routes>
-                    <Route exact path="/abstract" element={<AbstractPage/>}/>
+                    <Route exact path="/gallery" element={<GalleryPage/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
