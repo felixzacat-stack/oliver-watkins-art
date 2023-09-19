@@ -4,7 +4,6 @@ import './App.css';
 import Nav from "./Nav";
 import FrontPage from "./pages/FrontPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import AbstractPage from "./pages/AbstractPage";
 import GalleryPage from "./pages/GalleryPage";
 
 function App() {
