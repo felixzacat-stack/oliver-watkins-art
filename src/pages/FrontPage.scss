@@ -1,0 +1,94 @@
+@import "../App.scss";
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.grid-item {
+  /*background-color: #ddd;*/
+  /*border: 1px solid #333;*/
+  padding: 10%;
+  text-align: center;
+}
+
+.grid-item.large {
+  grid-column-end: span 2;
+  grid-row-end: span 2;
+}
+
+.grid-item.medium {
+  grid-column-end: span 2;
+}
+
+.grid-item.threewide {
+  grid-column-end: span 3;
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+
+
+}
+
+img.hidden {
+  opacity: 0;
+  transition: all 1s;
+  filter: blur(5px);
+  transform: translateX(-100px);
+  //background: red;
+}
+
+
+
+img.show-1 {
+  background-color: white;
+  z-index: 2;
+  opacity: 1;
+  transition: all 2s;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+img.show-2 {
+  background-color: white;
+  z-index: 2;
+  opacity: 1;
+  transition: all 2s;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+//TABLET
+@media only screen and (min-width: $breakpoint-width-phone) and (max-width: $breakpoint-width-tablet) {
+  .grid-container {
+    grid-template-columns: 40% 60%;
+    gap: 10px;
+    padding: 20px;
+  }
+  .grid-item.threewide {
+    grid-column-end: span 2;
+  }
+}
+
+//.services-section {
+//  .image {
+    //    height: 200px;
+    //    width: 200px;
+    //  }
+//}
+
+//PHONE
+@media only screen and (max-width: $breakpoint-width-phone) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2px;
+    padding: 2px;
+  }
+
+}

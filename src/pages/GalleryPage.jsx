@@ -1,6 +1,6 @@
 import React from 'react';
 
-import "./AbstractPage.css"
+import "./GalleryPage.scss"
 import img_rebirth from "../images/mind_to_infinity_80_by_60.jpg";
 import img_summer_party from "../images/summer_party_80_by_60.jpg";
 import windmill from "../images/windmill_60_by_45.jpg";

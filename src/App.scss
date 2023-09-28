@@ -1,3 +1,7 @@
+$breakpoint-width-phone: 400px;
+$breakpoint-width-tablet: 840px;
+//$breakpoint-width-normal: 800px;
+
 .App {
   /*border: 5px solid green;*/
 }
@@ -35,6 +39,7 @@
 
 /* Style the menu items */
 .main-menu ul {
+  padding: 0;
   list-style-type: none;
 }
 
@@ -81,14 +86,6 @@ h1 {
   line-height: 1.25;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding: 20px;
-
-
-}
 
 .picture-description {
   padding: 20px;
@@ -100,30 +97,64 @@ h1 {
   text-transform: uppercase;
 }
 
-/*.grid-item {*/
-/*  !*background-color: #ddd;*!*/
-/*  !*border: 1px solid #333;*!*/
-/*  padding: 50px;*/
-/*  text-align: center;*/
-/*}*/
 
-/*.grid-item.large {*/
-/*  grid-column-end: span 2;*/
-/*  grid-row-end: span 2;*/
-/*}*/
 
-/*.grid-item.medium {*/
-/*  grid-column-end: span 2;*/
-/*}*/
+//TABLET
+@media only screen and (min-width: $breakpoint-width-phone) and (max-width: $breakpoint-width-tablet) {
+  .App-header {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  .container {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  h1 {
+    //font-family: "Poppins",sans-serif;
+    //font-weight: 400;
+    //font-style: normal;
+    font-size: 18px;
+    //line-height: 1.25;
+  }
+  .App-header {
+    font-size: 16px;
+  }
 
-/*.grid-item.threewide {*/
-/*  grid-column-end: span 3;*/
-/*}*/
+  .picture-description {
+    font-size: 16px;
+  }
+  //.services-section {
+  //  .image {
+  //    height: 200px;
+  //    width: 200px;
+  //  }
+  //}
+}
+
+//PHONE
+@media only screen and (max-width: $breakpoint-width-phone) {
+  .App-header {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .App-header {
+    font-size: 12px;
+  }
+
+  .container {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .picture-description {
+    font-size: 12px;
+  }
+}
 
 
 img {
   max-width: 100%;
   height: auto;
 }
-
 
