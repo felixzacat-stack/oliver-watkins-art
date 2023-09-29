@@ -11,7 +11,7 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <header className="App-header">
-                    <div className="App-title"> Oliver Watkins - Art</div>
+                    <div className="App-title"><h1> Oliver Watkins - Art</h1></div>
                     <Nav/>
                 </header>
                 <Routes>

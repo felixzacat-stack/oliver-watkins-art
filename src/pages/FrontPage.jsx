@@ -39,9 +39,10 @@ function FrontPage(props) {
                     }}
                 </InView>
 
+                <p>
                 Hello! My name is Oliver Watkins and welcome to my gallery. Abstract
-                forms have always been a love affair for me. The blurring of the line between reality
-                and dreams has always been a theme for me.
+                forms have always been a love affair for me. I love exploring the line between reality
+                and dreams.</p>
             </div>
 
 
@@ -76,8 +77,8 @@ function FrontPage(props) {
 
 
             <div className="grid-item threewide">
-                <h1>Take a look through my gallery and see if there is something that wil
-                    inspire you or take you to another dimension</h1>
+                <h1>Take a look through my gallery and see if there is something that will
+                stir you</h1>
             </div>
 
 

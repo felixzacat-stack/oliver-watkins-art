@@ -2,8 +2,16 @@ $breakpoint-width-phone: 400px;
 $breakpoint-width-tablet: 840px;
 //$breakpoint-width-normal: 800px;
 
+
+//@font-face { font-family: Delicious; src: ""; }
+@font-face { font-family: OstrichSans; font-weight: normal; src: url('font/OstrichSans-Medium.otf');}
+
 .App {
   /*border: 5px solid green;*/
+}
+
+li, a {
+  font-family: "OstrichSans", serif;
 }
 
 .App-header {
@@ -51,7 +59,7 @@ $breakpoint-width-tablet: 840px;
 .main-menu a {
   text-decoration: none;
   color: #d32f2f;
-  font-family: 'roboto', Helvetica, Arial, sans-serif;
+  //font-family: 'roboto', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   /*font-weight: bold;*/
   transition: color 0.3s ease-in-out;
@@ -79,10 +87,10 @@ $breakpoint-width-tablet: 840px;
 }
 
 h1 {
-  font-family: "Poppins",sans-serif;
+  font-family: "OstrichSans", serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 24px;
+  font-size: 74px;
   line-height: 1.25;
 }
 
