@@ -1,6 +1,84 @@
+
+//@import "../App.scss";
+
+
+
+$breakpoint-width-phone: 400px;
+$breakpoint-width-tablet: 840px;
+
+.gallery-text1 {
+  font-size: 30px;
+
+}
+.gallery-text2 {
+  font-size: 20px;
+  //font-size: 30px;
+  font-weight: bold;
+}
+.gallery-text3 {
+  font-style: italic;
+
+}
+
+.modal2 {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.modal-content2 {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 40%;
+  height: auto;
+
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.close2 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding: 20px;
 }
+
+
+////TABLET
+@media only screen and (min-width: $breakpoint-width-phone) and (max-width: $breakpoint-width-tablet) {
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 20px;
+  }
+}
+//
+////PHONE
+@media only screen and (max-width: $breakpoint-width-phone) {
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    padding: 20px;
+  }
+}
+

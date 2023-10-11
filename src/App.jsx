@@ -8,7 +8,7 @@ import GalleryPage from "./pages/GalleryPage";
 
 function App() {
     return (
-        <div className="App">
+        <div className="App" id={"App"}>
             <BrowserRouter>
                 <header className="App-header">
                     <div className="App-title"><h1> Oliver Watkins - Art</h1></div>
