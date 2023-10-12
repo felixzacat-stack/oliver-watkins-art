@@ -27,30 +27,6 @@ import shapes from "../images/shapes.jpg";
 
 import Modal from 'react-modal';
 
-function Modal2(props) {
-    return (
-        <div className="modal2">
-            <div className="modal-content2">
-            <span className="close2" onClick={props.closeModal}>
-              &times;
-            </span>
-                {/*<h2>Modal Title</h2>*/}
-
-                <img src={props.img} alt="logo" onClick={props.closeModal}/>
-                {/*<p>This is the modal content.</p>*/}
-            </div>
-        </div>
-    )
-}
-
-// <div className="grid-item">
-//     <img onClick={() => openModal(img_rebirth)} src={img_rebirth} alt="logo"/>
-//     <div className="picture-description">
-//         <span className={"gallery-text1 "}>Rebirth - </span>
-//         <span></span>
-//         <span>(80cm by 60cm) </span>
-//     </div>
-// </div>
 
 
 let pics = [{
@@ -67,24 +43,21 @@ let pics = [{
         spec: "Acrylic on canvas board",
         dimensions: "(60cm by 45cm)",
 
-    },
-    {
+    }, {
 
         title: "Summer Party -",
         img: img_summer_party,
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
-    },
-    {
+    }, {
 
         title: "Windmill -",
         img: windmill,
         spec: "Acrylic on canvas board (60cm by 45cm) ",
         dimensions: "(60cm by 45cm)",
 
-    },
-    {
+    }, {
 
         title: "Impressions of Greece - ",
         img: abstr_greece,
@@ -109,7 +82,7 @@ let pics = [{
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
-    },    {
+    }, {
 
         title: "Dinner - ",
         img: cat_dinner,
@@ -125,7 +98,7 @@ let pics = [{
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
 
-    },    {
+    }, {
 
         title: "Figure #1 - ",
         img: figure,
@@ -141,7 +114,7 @@ let pics = [{
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
-    },    {
+    }, {
 
         title: "Lady on Sofa -",
         img: lady1,
@@ -188,7 +161,7 @@ let pics = [{
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
-    },    {
+    }, {
 
         title: "Stranger than paradise series #1 -",
         img: paradise1,
@@ -262,37 +235,41 @@ export default function GalleryPage(props) {
         Modal.setAppElement('.container');
     });
 
-    // let subtitle;
-
-    // function afterOpenModal() {
-    //     // references are now sync'd and can be accessed.
-    //     // subtitle.style.color = '#f00';
-    // }
-
-
     return (
         <div className={"gallery container"} id={"gallery"}>
             {isOpen && (
-                <Modal2
+                <GalleryModal
                     img={imgModal}
                     onClick={() => closeModal()}
                     closeModal={closeModal}
                 >
-                </Modal2>
+                </GalleryModal>
             )}
             {
                 pics && pics.map(el =>
-                        <div className="grid-item">
-                            <img onClick={() => openModal(el.img)} src={el.img} alt="logo"/>
-                            <div className="picture-description">
-                                <span className={"gallery-text1"}>{el.title}</span><br/>
-                                <span className={"gallery-text2"}>{el.spec}</span>
-                                <span className={"gallery-text3"}>{el.dimensions}</span>
-                            </div>
+                    <div className="gallery-grid-item">
+                        <img onClick={() => openModal(el.img)} src={el.img} alt="logo"/>
+                        <div className="gallery-picture-description">
+                            <span className={"gallery-text1"}>{el.title}</span><br/>
+                            <span className={"gallery-text2"}>{el.spec}</span>
+                            <span className={"gallery-text3"}>{el.dimensions}</span>
                         </div>
+                    </div>
                 )
             }
         </div>
     );
 }
 
+function GalleryModal(props) {
+    return (
+        <div className="gallery-modal">
+            <div className="gallery-modal-content">
+            {/*<span className="close-button" onClick={props.closeModal}>*/}
+            {/*  &times;*/}
+            {/*</span>*/}
+                <img src={props.img} alt="logo" onClick={props.closeModal}/>
+            </div>
+        </div>
+    )
+}

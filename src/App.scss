@@ -1,7 +1,7 @@
-$breakpoint-width-phone: 400px;
-$breakpoint-width-tablet: 840px;
+//$breakpoint-width-phone: 400px;
+//$breakpoint-width-tablet: 840px;
 //$breakpoint-width-normal: 800px;
-
+@import "Global.scss";
 
 //@font-face { font-family: Delicious; src: ""; }
 @font-face { font-family: OstrichSans; font-weight: normal; src: url('font/OstrichSans-Medium.otf');}
@@ -58,10 +58,8 @@ li, a {
 
 .main-menu a {
   text-decoration: none;
-  color: #d32f2f;
-  //font-family: 'roboto', Helvetica, Arial, sans-serif;
+  color: #c65376;
   text-transform: uppercase;
-  /*font-weight: bold;*/
   transition: color 0.3s ease-in-out;
 }
 
@@ -95,15 +93,6 @@ h1 {
 }
 
 
-.picture-description {
-  padding: 20px;
-  font-size: 24px;
-  /*font-family: "Poppins",sans-serif;*/
-
-  color: #6d7377;
-  font-family: 'roboto', Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-}
 
 
 
@@ -118,11 +107,7 @@ h1 {
     margin-right: 2px;
   }
   h1 {
-    //font-family: "Poppins",sans-serif;
-    //font-weight: 400;
-    //font-style: normal;
     font-size: 18px;
-    //line-height: 1.25;
   }
   .App-header {
     font-size: 16px;
@@ -131,12 +116,7 @@ h1 {
   .picture-description {
     font-size: 16px;
   }
-  //.services-section {
-  //  .image {
-  //    height: 200px;
-  //    width: 200px;
-  //  }
-  //}
+
 }
 
 //PHONE
@@ -153,6 +133,10 @@ h1 {
   .container {
     margin-left: 2px;
     margin-right: 2px;
+  }
+
+  h1 {
+    font-size: 16px;
   }
 
   .picture-description {

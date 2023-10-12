@@ -39,10 +39,11 @@ function FrontPage(props) {
                     }}
                 </InView>
 
-                <p>
-                Hello! My name is Oliver Watkins and welcome to my gallery. Abstract
+                <p className={"text1"}>
+                Hey there! My name is Oliver Watkins and welcome to my gallery. Abstract
                 forms have always been a love affair for me. I love exploring the line between reality
-                and dreams.</p>
+                and dreams.
+                </p>
             </div>
 
 
@@ -68,17 +69,20 @@ function FrontPage(props) {
                 </InView>
             </div>
             <div className="grid-item ">
+
+                <p className={"text2"}>
+
                 Works of figurative impressionism is also something I am passionate about.
 
                 Be it animals, figures walking on the beach, or bars with flaking wallpaper, I try to create symphony
                 of the brush strokes while still respecting the form.
-
+                </p>
             </div>
 
 
             <div className="grid-item threewide">
-                <h1>Take a look through my gallery and see if there is something that will
-                stir you</h1>
+                <p className={"text1"}>Take a look through my gallery and see if there is something that will
+                stir you</p>
             </div>
 
 

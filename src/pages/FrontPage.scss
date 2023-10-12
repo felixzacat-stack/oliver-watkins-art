@@ -32,8 +32,6 @@
 img {
   max-width: 100%;
   height: auto;
-
-
 }
 
 img.hidden {
@@ -41,10 +39,7 @@ img.hidden {
   transition: all 1s;
   filter: blur(5px);
   transform: translateX(-100px);
-  //background: red;
 }
-
-
 
 img.show-1 {
   background-color: white;
@@ -76,13 +71,6 @@ img.show-2 {
   }
 }
 
-//.services-section {
-//  .image {
-    //    height: 200px;
-    //    width: 200px;
-    //  }
-//}
-
 //PHONE
 @media only screen and (max-width: $breakpoint-width-phone) {
   .grid-container {
@@ -90,5 +78,4 @@ img.show-2 {
     gap: 2px;
     padding: 2px;
   }
-
 }
