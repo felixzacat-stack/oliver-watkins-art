@@ -2,8 +2,15 @@ import React, {useState, useEffect} from 'react';
 
 import "./GalleryPage.scss"
 import img_rebirth from "../images/mind_to_infinity_80_by_60.jpg";
+import img_rebirth_mu1 from "../images/mind_to_infinity_mu1.png";
+import img_rebirth_mu2 from "../images/mind_to_infinity_mu2.png";
+
 import img_summer_party from "../images/summer_party_80_by_60.jpg";
+import img_summer_party_mu1 from "../images/summer_party_mu1.png";
+
+
 import windmill from "../images/windmill_60_by_45.jpg";
+import windmill_mu1 from "../images/windmill_mu1.png";
 import abstr_greece from "../images/abstract_greece.jpg";
 import bar from "../images/bar_80_by_60.jpg";
 import agnes from "../images/agnes.jpg";
@@ -15,15 +22,21 @@ import khole from "../images/khole_60_by_45.jpg";
 import lady1 from "../images/lady_1.jpg";
 import lady2 from "../images/lady_2.jpg";
 import lady3 from "../images/lady_3.jpg";
+import lady3_mu1 from "../images/lady3_mu1.png";
+
 import lion from "../images/lion_70_by_50.jpg";
 import monster from "../images/monster.jpg";
 import overpass from "../images/overpass_70_by_50.jpg";
+import overpass_mu1 from "../images/overpass_mu1.png";
+
 import paradise1 from "../images/paradise_1.jpg";
 import paradise2 from "../images/paradise_2.jpg";
 import paradise3 from "../images/paradise_3.jpg";
 import perm_vacation from "../images/perm_vacation.jpg";
 import queens_gambit from "../images/queens_gambit.jpg";
 import shapes from "../images/shapes.jpg";
+import shapes_mu1 from "../images/shapes_mu1.jpg";
+
 
 import Modal from 'react-modal';
 
@@ -32,76 +45,69 @@ import Modal from 'react-modal';
 let pics = [{
 
         title: "Rebirth -",
-        img: img_rebirth,
+        img: [img_rebirth,    img_rebirth_mu1,
+            img_rebirth_mu2],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
     }, {
 
         title: "Agnes",
-        img: agnes,
+        img: [agnes],
         spec: "Acrylic on canvas board",
         dimensions: "(60cm by 45cm)",
 
     }, {
 
         title: "Summer Party -",
-        img: img_summer_party,
+        img: [img_summer_party, img_summer_party_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
     }, {
 
         title: "Windmill -",
-        img: windmill,
+        img: [windmill, windmill_mu1],
         spec: "Acrylic on canvas board (60cm by 45cm) ",
         dimensions: "(60cm by 45cm)",
 
     }, {
 
         title: "Impressions of Greece - ",
-        img: abstr_greece,
+        img: [abstr_greece],
         spec: "Acrylic on paper ",
         dimensions: "(xxx)",
-
     },
     {
-
         title: "At the bar -",
-        img: bar,
+        img: [bar],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
-
     },
-
-
     {
-
         title: "Paris Texas -",
-        img: broken_car,
+        img: [broken_car],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
     }, {
 
         title: "Dinner - ",
-        img: cat_dinner,
+        img: [cat_dinner],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
-
     },
-
     {
 
         title: "Dogs -",
-        img: dogs,
+        img: [dogs],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
 
     }, {
 
         title: "Figure #1 - ",
-        img: figure,
+        img: [figure],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
@@ -110,14 +116,14 @@ let pics = [{
     {
 
         title: "K-Hole of the spotless mind - ",
-        img: khole,
+        img: [khole],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
     }, {
 
         title: "Lady on Sofa -",
-        img: lady1,
+        img: [lady1],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
 
@@ -125,7 +131,7 @@ let pics = [{
     {
 
         title: "Figure #2 - ",
-        img: lady2,
+        img: [lady2],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
@@ -133,7 +139,7 @@ let pics = [{
     {
 
         title: "Figure #3 - ",
-        img: lady3,
+        img: [lady3, lady3_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
@@ -141,7 +147,7 @@ let pics = [{
     {
 
         title: "Lion - ",
-        img: lion,
+        img: [lion],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
 
@@ -149,7 +155,7 @@ let pics = [{
     {
 
         title: "Awaken the Monster -",
-        img: monster,
+        img: [monster],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
@@ -157,14 +163,14 @@ let pics = [{
     {
 
         title: "Overpass - ",
-        img: overpass,
+        img: [overpass, overpass_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
 
     }, {
 
         title: "Stranger than paradise series #1 -",
-        img: paradise1,
+        img: [paradise1],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
 
@@ -172,14 +178,14 @@ let pics = [{
     {
 
         title: "Stranger than paradise series #2 -",
-        img: paradise2,
+        img: [paradise2],
         spec: "Acrylic on paper ",
         dimensions: "(80cm by 60cm)",
 
     }, {
 
         title: "Stranger than paradise series #3 -",
-        img: paradise3,
+        img: [paradise3],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
 
@@ -187,7 +193,7 @@ let pics = [{
     {
 
         title: "Morning coffee - ",
-        img: perm_vacation,
+        img: [perm_vacation],
         spec: "Acrylic on canvas board  ",
         dimensions: "(60cm by 45cm)",
 
@@ -195,7 +201,7 @@ let pics = [{
     {
 
         title: "Ever after - ",
-        img: queens_gambit,
+        img: [queens_gambit],
         spec: "Acrylic on canvas board  ",
         dimensions: "(60cm by 45cm)",
 
@@ -203,14 +209,14 @@ let pics = [{
     {
 
         title: "Shapes - ",
-        img: shapes,
+        img: [shapes, shapes_mu1],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
     },
     {
 
         title: "Windmill - ",
-        img: windmill,
+        img: [windmill],
         spec: "Acrylic on paper",
         dimensions: "(60cm by 45cm)",
     },
@@ -238,17 +244,17 @@ export default function GalleryPage(props) {
     return (
         <div className={"gallery container"} id={"gallery"}>
             {isOpen && (
-                <GalleryModal
+                <GalleryModal2
                     img={imgModal}
                     onClick={() => closeModal()}
                     closeModal={closeModal}
                 >
-                </GalleryModal>
+                </GalleryModal2>
             )}
             {
                 pics && pics.map(el =>
                     <div className="gallery-grid-item">
-                        <img onClick={() => openModal(el.img)} src={el.img} alt="logo"/>
+                        <img onClick={() => openModal(el.img)} src={el.img[0]} alt="logo"/>
                         <div className="gallery-picture-description">
                             <span className={"gallery-text1"}>{el.title}</span><br/>
                             <span className={"gallery-text2"}>{el.spec}</span>
@@ -261,15 +267,80 @@ export default function GalleryPage(props) {
     );
 }
 
-function GalleryModal(props) {
+
+function GalleryModal2(props) {
+
+    let [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+    let click = () => {
+
+        // debugger;
+
+        if (currentImageIndex == (props.img.length - 1)) {
+            props.closeModal()
+
+        }else {
+            // alert()
+            setCurrentImageIndex(currentImageIndex + 1)
+        }
+
+    }
+
+    // props.img;
+
     return (
         <div className="gallery-modal">
             <div className="gallery-modal-content">
-            {/*<span className="close-button" onClick={props.closeModal}>*/}
-            {/*  &times;*/}
-            {/*</span>*/}
-                <img src={props.img} alt="logo" onClick={props.closeModal}/>
+                {/*<span className="close-button" onClick={props.closeModal}>*/}
+                {/*  &times;*/}
+                {/*</span>*/}
+                <img src={props.img[currentImageIndex]} alt="logo" onClick={click}/>
             </div>
         </div>
     )
+
+}
+
+function GalleryModal(props) {
+
+
+
+
+    if (Array.isArray(props.img)) {
+
+        let img = props.img[0]
+
+        let click = () => {
+
+        }
+
+
+
+        return (
+            <div className="gallery-modal">
+                <div className="gallery-modal-content">
+                    {/*<span className="close-button" onClick={props.closeModal}>*/}
+                    {/*  &times;*/}
+                    {/*</span>*/}
+                    <img src={props.img} alt="logo" onClick={props.closeModal}/>
+                </div>
+            </div>
+        )
+    }else {
+        // if (props.img)
+
+        return (
+            <div className="gallery-modal">
+                <div className="gallery-modal-content">
+                    {/*<span className="close-button" onClick={props.closeModal}>*/}
+                    {/*  &times;*/}
+                    {/*</span>*/}
+                    <img src={props.img} alt="logo" onClick={props.closeModal}/>
+                </div>
+            </div>
+        )
+    }
+
+
+
 }
