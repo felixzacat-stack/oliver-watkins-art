@@ -2,13 +2,16 @@ $breakpoint-width-phone: 400px;
 $breakpoint-width-tablet: 940px;
 //$breakpoint-width-normal: 800px;
 
+html{
+  font-size: 15px;
+}
 
 .text1 {
 
   font-family: "OstrichSans", serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 50px;
+  font-size: 3rem;
   line-height: 1.25;
 
 }
@@ -18,7 +21,7 @@ $breakpoint-width-tablet: 940px;
   font-family: "OstrichSans", serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 20px;
+  font-size: 2rem;
   line-height: 1.25;
 }
 .text3 {
@@ -26,6 +29,30 @@ $breakpoint-width-tablet: 940px;
   font-family: "OstrichSans", serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 74px;
+  font-size: 1rem;
   line-height: 1.25;
 }
+
+
+
+//TABLET
+@media only screen and (min-width: $breakpoint-width-phone) and (max-width: $breakpoint-width-tablet) {
+
+
+  html{
+    font-size: 10px;
+  }
+
+}
+
+//PHONE
+@media only screen and (max-width: $breakpoint-width-phone) {
+
+  html{
+    font-size: 5px;
+  }
+
+}
+
+
+

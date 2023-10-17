@@ -276,7 +276,7 @@ function GalleryModal2(props) {
 
         // debugger;
 
-        if (currentImageIndex == (props.img.length - 1)) {
+        if (currentImageIndex === (props.img.length - 1)) {
             props.closeModal()
 
         }else {
@@ -285,9 +285,6 @@ function GalleryModal2(props) {
         }
 
     }
-
-    // props.img;
-
     return (
         <div className="gallery-modal">
             <div className="gallery-modal-content">
@@ -298,49 +295,5 @@ function GalleryModal2(props) {
             </div>
         </div>
     )
-
-}
-
-function GalleryModal(props) {
-
-
-
-
-    if (Array.isArray(props.img)) {
-
-        let img = props.img[0]
-
-        let click = () => {
-
-        }
-
-
-
-        return (
-            <div className="gallery-modal">
-                <div className="gallery-modal-content">
-                    {/*<span className="close-button" onClick={props.closeModal}>*/}
-                    {/*  &times;*/}
-                    {/*</span>*/}
-                    <img src={props.img} alt="logo" onClick={props.closeModal}/>
-                </div>
-            </div>
-        )
-    }else {
-        // if (props.img)
-
-        return (
-            <div className="gallery-modal">
-                <div className="gallery-modal-content">
-                    {/*<span className="close-button" onClick={props.closeModal}>*/}
-                    {/*  &times;*/}
-                    {/*</span>*/}
-                    <img src={props.img} alt="logo" onClick={props.closeModal}/>
-                </div>
-            </div>
-        )
-    }
-
-
 
 }
