@@ -37,8 +37,15 @@ import queens_gambit from "../images/queens_gambit.jpg";
 import shapes from "../images/shapes.jpg";
 import shapes_mu1 from "../images/shapes_mu1.jpg";
 
+import pink from "../images/pink.jpg";
+import orange from "../images/orange.jpg";
+import blue from "../images/blue.jpg";
+
+
+
 
 import Modal from 'react-modal';
+import GalleryModal from "../common/GalleryModal";
 
 
 
@@ -208,18 +215,38 @@ let pics = [{
     },
     {
 
-        title: "Shapes - ",
         img: [shapes, shapes_mu1],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
     },
     {
 
-        title: "Windmill - ",
-        img: [windmill],
-        spec: "Acrylic on paper",
-        dimensions: "(60cm by 45cm)",
+        title: "Pink ",
+        img: [pink],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(80cm by 60cm)",
     },
+    {
+
+        title: "Orange ",
+        img: [orange],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(80cm by 60cm)",
+    },
+    {
+
+        title: "Blue ",
+        img: [blue],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(80cm by 60cm)",
+    },
+    // {
+    //
+    //     title: "Windmill - ",
+    //     img: [windmill],
+    //     spec: "Acrylic on paper",
+    //     dimensions: "(60cm by 45cm)",
+    // },
 ]
 
 
@@ -244,12 +271,12 @@ export default function GalleryPage(props) {
     return (
         <div className={"gallery container"} id={"gallery"}>
             {isOpen && (
-                <GalleryModal2
+                <GalleryModal
                     img={imgModal}
                     onClick={() => closeModal()}
                     closeModal={closeModal}
                 >
-                </GalleryModal2>
+                </GalleryModal>
             )}
             {
                 pics && pics.map(el =>
@@ -268,32 +295,4 @@ export default function GalleryPage(props) {
 }
 
 
-function GalleryModal2(props) {
 
-    let [currentImageIndex, setCurrentImageIndex] = useState(0)
-
-    let click = () => {
-
-        // debugger;
-
-        if (currentImageIndex === (props.img.length - 1)) {
-            props.closeModal()
-
-        }else {
-            // alert()
-            setCurrentImageIndex(currentImageIndex + 1)
-        }
-
-    }
-    return (
-        <div className="gallery-modal">
-            <div className="gallery-modal-content">
-                {/*<span className="close-button" onClick={props.closeModal}>*/}
-                {/*  &times;*/}
-                {/*</span>*/}
-                <img src={props.img[currentImageIndex]} alt="logo" onClick={click}/>
-            </div>
-        </div>
-    )
-
-}
