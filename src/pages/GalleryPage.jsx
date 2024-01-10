@@ -250,7 +250,7 @@ let pics = [{
 ]
 
 
-export default function GalleryPage(props) {
+export default function GalleryPage() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [imgModal, setImgModal] = useState();

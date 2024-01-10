@@ -1,23 +1,20 @@
 @import "../Global.scss";
 
-
-
-
 .gallery-picture-description {
   padding: 20px;
   font-size: 24px;
-  /*font-family: "Poppins",sans-serif;*/
 
   color: #6d7377;
   font-family: 'roboto', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 
-
+.gallery-grid-item {
+  cursor: pointer;
+}
 
 .gallery {
   display: grid;
-  //grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding: 20px;
 
@@ -26,9 +23,6 @@
   }
 
   .gallery-grid-item {
-    /*background-color: #ddd;*/
-    /*border: 1px solid #333;*/
-    //padding: 10%;
     text-align: center;
   }
 
@@ -142,12 +136,9 @@
 
   }
   .gallery-text3 {
-
     font-size: 0.7rem;
     //font-size: 20px;
-
   }
-
 
   .gallery-modal {
     .gallery-modal-content {
