@@ -1,45 +1,45 @@
 import React, {useState, useEffect} from 'react';
 
 import "./GalleryPage.scss"
-import img_rebirth from "../images/mind_to_infinity_80_by_60.jpg";
+import img_rebirth from "../images/mind_to_infinity_80_by_60_COMP.jpg";
 import img_rebirth_mu1 from "../images/mind_to_infinity_mu1.png";
 import img_rebirth_mu2 from "../images/mind_to_infinity_mu2.png";
 
-import img_summer_party from "../images/summer_party_80_by_60.jpg";
+import img_summer_party from "../images/summer_party_80_by_60_COMP.jpg";
 import img_summer_party_mu1 from "../images/summer_party_mu1.png";
 
 
-import windmill from "../images/windmill_60_by_45.jpg";
+import windmill from "../images/windmill_60_by_45_COMP.jpg";
 import windmill_mu1 from "../images/windmill_mu1.png";
-import abstr_greece from "../images/abstract_greece.jpg";
-import bar from "../images/bar_80_by_60.jpg";
-import agnes from "../images/agnes.jpg";
-import broken_car from "../images/broken_car_70_by_50.jpg";
-import cat_dinner from "../images/cat_dinner_50_by_60.jpg";
-import dogs from "../images/dogs.jpg";
-import figure from "../images/figure.jpg";
-import khole from "../images/khole_60_by_45.jpg";
-import lady1 from "../images/lady_1.jpg";
-import lady2 from "../images/lady_2.jpg";
-import lady3 from "../images/lady_3.jpg";
+import abstr_greece from "../images/abstract_greece_COMP.jpg";
+import bar from "../images/bar_80_by_60_COMP.jpg";
+import agnes from "../images/agnes_COMP.jpg";
+import broken_car from "../images/broken_car_70_by_50_COMP.jpg";
+import cat_dinner from "../images/cat_dinner_50_by_60_COMP.jpg";
+import dogs from "../images/dogs_COMP.jpg";
+import figure from "../images/figure_COMP.jpg";
+import khole from "../images/khole_60_by_45_COMP.jpg";
+import lady1 from "../images/lady_1_COMP.jpg";
+import lady2 from "../images/lady_2_COMP.jpg";
+import lady3 from "../images/lady_3_COMP.jpg";
 import lady3_mu1 from "../images/lady3_mu1.png";
 
-import lion from "../images/lion_70_by_50.jpg";
-import monster from "../images/monster.jpg";
-import overpass from "../images/overpass_70_by_50.jpg";
+import lion from "../images/lion_70_by_50_COMP.jpg";
+import monster from "../images/monster_COMP.jpg";
+import overpass from "../images/overpass_70_by_50_COMP.jpg";
 import overpass_mu1 from "../images/overpass_mu1.png";
 
-import paradise1 from "../images/paradise_1.jpg";
-import paradise2 from "../images/paradise_2.jpg";
-import paradise3 from "../images/paradise_3.jpg";
+import paradise1 from "../images/paradise_1_COMP.jpg";
+import paradise2 from "../images/paradise_2_COMP.jpg";
+import paradise3 from "../images/paradise_3_COMP.jpg";
 import perm_vacation from "../images/perm_vacation.jpg";
-import queens_gambit from "../images/queens_gambit.jpg";
-import shapes from "../images/shapes.jpg";
+import queens_gambit from "../images/queens_gambit_COMP.jpg";
+import shapes from "../images/shapes_COMP.jpg";
 import shapes_mu1 from "../images/shapes_mu1.jpg";
 
-import pink from "../images/pink.jpg";
-import orange from "../images/orange.jpg";
-import blue from "../images/blue.jpg";
+import pink from "../images/pink_COMP.jpg";
+import orange from "../images/orange_COMP.jpg";
+import blue from "../images/blue_COMP.jpg";
 
 
 
