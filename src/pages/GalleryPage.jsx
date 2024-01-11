@@ -46,8 +46,8 @@ import blue from "../images/blue.jpg";
 
 import Modal from 'react-modal';
 import GalleryModal from "../common/GalleryModal";
-// import Masonry from "react-responsive-masonry";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import Masonry from "react-responsive-masonry";
+// import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 
 
