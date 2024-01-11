@@ -46,6 +46,8 @@ import blue from "../images/blue.jpg";
 
 import Modal from 'react-modal';
 import GalleryModal from "../common/GalleryModal";
+// import Masonry from "react-responsive-masonry";
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 
 
@@ -240,13 +242,6 @@ let pics = [{
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
     },
-    // {
-    //
-    //     title: "Windmill - ",
-    //     img: [windmill],
-    //     spec: "Acrylic on paper",
-    //     dimensions: "(60cm by 45cm)",
-    // },
 ]
 
 
@@ -265,32 +260,47 @@ export default function GalleryPage() {
     }
 
     useEffect(() => {
-        Modal.setAppElement('.container');
+        Modal.setAppElement('.gallery-container');
     });
 
     return (
-        <div className={"gallery container"} id={"gallery"}>
-            {isOpen && (
-                <GalleryModal
-                    img={imgModal}
-                    onClick={() => closeModal()}
-                    closeModal={closeModal}
-                >
-                </GalleryModal>
-            )}
+
+        <div className={"gallery-container container"} >
+            {/*<ResponsiveMasonry*/}
+            {/*    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}*/}
+            {/*>*/}
+
+
+
+        <Masonry
+            // columnsCount={3} gutter="10px"
+        >
+
+                 {isOpen && (
+                    <GalleryModal
+                        img={imgModal}
+                        onClick={() => closeModal()}
+                        closeModal={closeModal}
+                    >
+                    </GalleryModal>
+                )}
             {
-                pics && pics.map(el =>
-                    <div className="gallery-grid-item">
-                        <img onClick={() => openModal(el.img)} src={el.img[0]} alt="logo"/>
-                        <div className="gallery-picture-description">
-                            <span className={"gallery-text1"}>{el.title}</span><br/>
-                            <span className={"gallery-text2"}>{el.spec}</span>
-                            <span className={"gallery-text3"}>{el.dimensions}</span>
+                    pics && pics.map(el =>
+                        <div className="gallery-grid-item">
+                            <img onClick={() => openModal(el.img)} src={el.img[0]} alt="logo"/>
+                            <div className="gallery-picture-description">
+                                <span className={"gallery-text1"}>{el.title}</span><br/>
+                                <span className={"gallery-text2"}>{el.spec}</span>
+                                <span className={"gallery-text3"}>{el.dimensions}</span>
+                            </div>
                         </div>
-                    </div>
-                )
-            }
+                    )
+                }
+        </Masonry>
+            {/*</ResponsiveMasonry>*/}
+
         </div>
+
     );
 }
 

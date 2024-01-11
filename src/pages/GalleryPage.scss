@@ -1,123 +1,136 @@
 @import "../Global.scss";
 
-.gallery-picture-description {
-  padding: 20px;
-  font-size: 24px;
 
-  color: #6d7377;
-  font-family: 'roboto', Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-}
 
-.gallery-grid-item {
-  cursor: pointer;
-}
 
-.gallery {
-  display: grid;
-  gap: 10px;
+.gallery-container {
+
+  border: 3px solid blue;
+
   padding: 20px;
 
-  .gallery-picture-description {
-    font-size: 1rem;
-  }
+  //width: 1200px;
+
 
   .gallery-grid-item {
+
+
+    display: inline-block;
+
+    cursor: pointer;
     text-align: center;
-  }
+    border: 3px solid rgba(255, 246, 170, 0.69);
 
-  .gallery-text1 {
-    //font-size: 30px;
-  }
-  .gallery-text2 {
-    font-weight: bold;
-  }
-  .gallery-text3 {
-    font-style: italic;
-  }
-}
+    img {
+      width: 400px;
+    }
 
-
-////NORMAL
-@media only screen and (min-width: $breakpoint-width-tablet) {
-  .gallery {
-    //display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 20px;
-  }
-
-  .gallery-text1 {
-    font-size: 30px;
-  }
-  .gallery-text2 {
-    font-size: 20px;
-    //font-size: 30px;
-    font-weight: bold;
-  }
-  .gallery-text3 {
-    font-style: italic;
-  }
-
-  .gallery-grid-item {
-    padding: 10%;
-  }
-
-  .gallery-modal {
-    .gallery-modal-content {
-      top: 50%;
-      left: 50%;
-      width: 40%;
-      height: auto;
-      transform: translate(-50%, -50%);
+    .gallery-picture-description {
       padding: 20px;
+      //font-size: 14px;
+      font-size: 1rem;
+
+      color: #6d7377;
+      font-family: 'roboto', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
     }
+
+    .gallery-text1 {
+      //font-size: 30px;
+    }
+    .gallery-text2 {
+      //font-weight: bold;
+    }
+    .gallery-text3 {
+      font-style: italic;
+    }
+
   }
 }
 
 
-////TABLET
-@media only screen and (min-width: $breakpoint-width-phone) and (max-width: $breakpoint-width-tablet) {
-  .gallery {
-    //display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    padding: 2px;
-  }
-  .gallery-text1 {
-    font-size: 1.5rem;
-    //color: red;
-  }
-  .gallery-text2 {
-    font-size: 0.8rem;
-    //font-size: 30px;
-    font-weight: bold;
-  }
-  .gallery-text3 {
-    font-size: 1rem;
-    font-style: italic;
-  }
-
-  .gallery-grid-item {
-    padding: 5%;
-  }
-
-  .gallery-modal {
-    .gallery-modal-content {
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: auto;
-      transform: translate(-50%, -50%);
-      padding: 2px;
-    }
-  }
-
-}
+//////NORMAL
+//@media only screen and (min-width: $breakpoint-width-tablet) {
+//
+//
+//  .gallery-container {
+//    //display: grid;
+//    //grid-template-columns: repeat(3, 1fr);
+//    //gap: 10px;
+//    //padding: 20px;
+//  }
+//
+//  .gallery-text1 {
+//    font-size: 16px;
+//    font-weight: bold;
+//  }
+//  .gallery-text2 {
+//    font-size: 16px;
+//    //font-size: 30px;
+//  }
+//  .gallery-text3 {
+//    font-style: italic;
+//  }
+//
+//  .gallery-grid-item {
+//    padding: 10%;
+//  }
+//
+//  .gallery-modal {
+//    .gallery-modal-content {
+//      top: 50%;
+//      left: 50%;
+//      width: 40%;
+//      height: auto;
+//      transform: translate(-50%, -50%);
+//      padding: 20px;
+//    }
+//  }
+//}
+//
+//
+//////TABLET
+//@media only screen and (min-width: $breakpoint-width-phone) and (max-width: $breakpoint-width-tablet) {
+//  .gallery-container {
+//    //display: grid;
+//    grid-template-columns: repeat(2, 1fr);
+//    gap: 2px;
+//    padding: 2px;
+//  }
+//  .gallery-text1 {
+//    font-size: 1.5rem;
+//    //color: red;
+//  }
+//  .gallery-text2 {
+//    font-size: 0.8rem;
+//    //font-size: 30px;
+//    font-weight: bold;
+//  }
+//  .gallery-text3 {
+//    font-size: 1rem;
+//    font-style: italic;
+//  }
+//
+//  .gallery-grid-item {
+//    padding: 5%;
+//  }
+//
+//  .gallery-modal {
+//    .gallery-modal-content {
+//      top: 50%;
+//      left: 50%;
+//      width: 100%;
+//      height: auto;
+//      transform: translate(-50%, -50%);
+//      padding: 2px;
+//    }
+//  }
+//
+//}
 //
 ////PHONE
 @media only screen and (max-width: $breakpoint-width-phone) {
-  .gallery {
+  .gallery-container {
     //display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 10px;

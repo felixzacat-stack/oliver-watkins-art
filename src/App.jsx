@@ -15,7 +15,11 @@ function App() {
         <div className="App" id={"App"}>
             <BrowserRouter>
                 <header className="App-header">
-                    <div className="App-title"><h1> Oliver Watkins - Art</h1></div>
+                    <div className="App-title"><h1> Oliver Watkins - ART</h1></div>
+
+                    {/*A<span class="fliph">B</span>BA*/}
+
+
                     <Nav/>
                 </header>
                 <Routes>
