@@ -5,7 +5,7 @@
 
 .gallery-container {
 
-  border: 3px solid blue;
+  border: 1px solid rgba(89, 184, 218, 0.56);
 
   padding: 20px;
 
@@ -19,31 +19,44 @@
 
     cursor: pointer;
     text-align: center;
-    border: 3px solid rgba(255, 246, 170, 0.69);
+    border: 3px solid rgb(255, 255, 255);
 
     img {
       width: 400px;
     }
 
     .gallery-picture-description {
-      padding: 20px;
+
+
+      //border: 2px solid rgb(0, 51, 255);
+
+      padding: 20px 10px 20px 10px;
       //font-size: 14px;
       font-size: 1rem;
 
       color: #6d7377;
       font-family: 'roboto', Helvetica, Arial, sans-serif;
       text-transform: uppercase;
+
+      .gallery-text1 {
+        text-align: left;
+        //border: 2px solid rgb(218, 25, 25);
+        color: #c65376;
+        font-weight: bold;
+      }
+      .gallery-text2 {
+        text-align: left;
+        //border: 2px solid rgb(0, 255, 21);
+        //font-weight: bold;
+      }
+      .gallery-text3 {
+        text-align: left;
+        //border: 2px solid rgb(0, 51, 255);
+        font-style: italic;
+      }
     }
 
-    .gallery-text1 {
-      //font-size: 30px;
-    }
-    .gallery-text2 {
-      //font-weight: bold;
-    }
-    .gallery-text3 {
-      font-style: italic;
-    }
+
 
   }
 }

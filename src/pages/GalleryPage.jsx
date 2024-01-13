@@ -61,7 +61,7 @@ let pics = [{
 
     }, {
 
-        title: "Agnes",
+        title: "Agnes - ",
         img: [agnes],
         spec: "Acrylic on canvas board",
         dimensions: "(60cm by 45cm)",
@@ -88,7 +88,7 @@ let pics = [{
         dimensions: "(xxx)",
     },
     {
-        title: "At the bar -",
+        title: "Beasts at the Bar -",
         img: [bar],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
@@ -155,7 +155,7 @@ let pics = [{
     },
     {
 
-        title: "Lion - ",
+        title: "Abstract Lion - ",
         img: [lion],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
@@ -289,9 +289,9 @@ export default function GalleryPage() {
                         <div className="gallery-grid-item">
                             <img onClick={() => openModal(el.img)} src={el.img[0]} alt="logo"/>
                             <div className="gallery-picture-description">
-                                <span className={"gallery-text1"}>{el.title}</span><br/>
-                                <span className={"gallery-text2"}>{el.spec}</span>
-                                <span className={"gallery-text3"}>{el.dimensions}</span>
+                                <div className={"gallery-text1"}>{el.title}</div>
+                                <div className={"gallery-text2"}>{el.spec}</div>
+                                <div className={"gallery-text3"}>{el.dimensions}</div>
                             </div>
                         </div>
                     )

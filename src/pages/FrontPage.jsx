@@ -6,7 +6,6 @@ import str_parad_2 from "../images/paradise_2_COMP.jpg";
 import windmill from "../images/windmill_60_by_45_COMP.jpg";
 import img_cat_dinner from "../images/cat_dinner_50_by_60_COMP.jpg";
 
-import str_para_1 from "../images/paradise_1_COMP.jpg";
 import bar from "../images/bar_80_by_60_COMP.jpg";
 
 import "./FrontPage.scss"
@@ -105,16 +104,16 @@ function FrontPage(props) {
                     }}
                 </InView>
             </div>
-            <div className="grid-item medium">
-                <InView>
-                    {({ inView, ref, entry }) => {
+            {/*<div className="grid-item medium">*/}
+            {/*    <InView>*/}
+            {/*        {({ inView, ref, entry }) => {*/}
 
-                        return (
-                            <img ref={ref} className={" " + (inView ? "show-1" : "hidden")} src={str_para_1} alt="logo"/>
-                        )
-                    }}
-                </InView>
-            </div>
+            {/*            return (*/}
+            {/*                <img ref={ref} className={" " + (inView ? "show-1" : "hidden")} src={str_para_1} alt="logo"/>*/}
+            {/*            )*/}
+            {/*        }}*/}
+            {/*    </InView>*/}
+            {/*</div>*/}
             <div className="grid-item ">
 
                 <InView>
