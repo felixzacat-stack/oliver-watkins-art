@@ -209,7 +209,7 @@ let pics = [{
     },
     {
 
-        title: "Ever after - ",
+        title: "Dream Gambit - ",
         img: [queens_gambit],
         spec: "Acrylic on canvas board  ",
         dimensions: "(60cm by 45cm)",
