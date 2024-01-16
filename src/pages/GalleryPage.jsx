@@ -113,6 +113,7 @@ let pics = [{
         img: [dogs, dogs_mu1],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
+        sold: true
 
     }, {
 
@@ -294,6 +295,8 @@ export default function GalleryPage() {
                                 <div className={"gallery-text2"}>{el.spec}</div>
                                 <div className={"gallery-text3"}>{el.dimensions}</div>
                             </div>
+                            {el.sold &&
+                            <h4 className="shape-shop-image-sash"> &nbsp;  &nbsp;  &nbsp;     SOLD</h4>}
                         </div>
                     )
                 }
