@@ -1,5 +1,27 @@
 @import "../App.scss";
 
+.rounded-button {
+  display: inline-block;
+  padding: 10px 200px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 60px; /* Adjust the border-radius to control the roundness */
+  //background-color: #3498db; /* Change the background color */
+  color: #fff; /* Change the text color */
+  border: 2px solid #c65376; /* Change the border color */
+  //color: #2980b9; /* Change the text color on hover */
+  color: #c65376;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add hover effect */
+.rounded-button:hover {
+  background-color: #eeacb2; /* Change the background color on hover */
+  color: #fff; /* Change the text color on hover */
+}
+
 
 .grid-container {
   display: grid;

@@ -17,6 +17,7 @@ import agnes from "../images/agnes_COMP.jpg";
 import broken_car from "../images/broken_car_70_by_50_COMP.jpg";
 import cat_dinner from "../images/cat_dinner_50_by_60_COMP.jpg";
 import dogs from "../images/dogs_COMP.jpg";
+import dogs_mu1 from "../images/dogs_mu1.jpg";
 import figure from "../images/figure_COMP.jpg";
 import khole from "../images/khole_60_by_45_COMP.jpg";
 import lady1 from "../images/lady_1_COMP.jpg";
@@ -108,8 +109,8 @@ let pics = [{
     },
     {
 
-        title: "Dogs -",
-        img: [dogs],
+        title: "Dog Siblings -",
+        img: [dogs, dogs_mu1],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
 
@@ -201,7 +202,7 @@ let pics = [{
     },
     {
 
-        title: "Morning coffee - ",
+        title: "The literary boor - ",
         img: [perm_vacation],
         spec: "Acrylic on canvas board  ",
         dimensions: "(60cm by 45cm)",

@@ -76,8 +76,19 @@ function FrontPage(props) {
             </div>
 
             <div className="grid-item threewide">
-                <p className={"text1"}>Lorem ipsum dolor sit amet, consectetur adipisicing elit.. Take a look through my gallery and see if there is something that will
-                stir your coul</p>
+
+                <a href="/gallery" className="rounded-button">
+                    <p className={"text1"}>
+                    View Gallery
+
+                    </p>
+                </a>
+                {/*<p className={"text1"}>*/}
+
+
+
+                {/*    Lorem ipsum dolor sit amet, consectetur adipisicing elit.. Take a look through my gallery and see if there is something that will*/}
+                {/*stir your coul</p>*/}
             </div>
 
             {/*Accusantium aspernatur assumenda cumque dicta dignissimos dolore dolorum eos explicabo fuga illo ipsam, ipsum itaque nesciunt provident rerum suscipit veritatis voluptatem, voluptatum!*/}
