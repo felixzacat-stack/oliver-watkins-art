@@ -101,6 +101,7 @@ let pics = [{
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "150€ + PH",
+        sold: true
     }, {
         title: "Paris Texas -",
         img: [broken_car],
