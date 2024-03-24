@@ -48,6 +48,15 @@ import orange from "../images/orange_COMP.jpg";
 import blue from "../images/blue_COMP.jpg";
 
 
+import abstractX from "../images/abstractX_COMP.jpg";
+import abstractX_mu1 from "../images/abstractX_mu.jpg";
+
+import squid from "../images/squid_50_by_60_COMP.jpg";
+
+import uml from "../images/uml_40_by_40_COMP.jpg";
+
+
+
 import Modal from 'react-modal';
 import GalleryModal from "../common/GalleryModal";
 import Masonry from "react-responsive-masonry";
@@ -193,6 +202,25 @@ let pics = [{
     },
     {
 
+        title: "UML - ",
+        img: [uml],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(40cm by 40cm)",
+        price: "60€ + PH",
+    }, {
+
+        title: "Squid - ",
+        img: [squid],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(50cm by 60cm)",
+        price: "50€ + PH",
+    }, {
+        title: "Abstract X - ",
+        img: [abstractX, abstractX_mu1],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(40cm by 40cm)",
+        price: "80€ + PH",
+    }, {
         title: "Overpass - ",
         img: [overpass, overpass_mu1],
         spec: "Acrylic on stretched canvas ",

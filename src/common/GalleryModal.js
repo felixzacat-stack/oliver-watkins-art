@@ -14,8 +14,15 @@ export default function GalleryModal(props) {
 
     }
     return (
-        <div className="gallery-modal">
-            <div className="gallery-modal-content">
+        <div className="gallery-modal" onClick={
+            (event)=>
+            {
+                if(event.target.parentElement.className == 'gallery-modal-content') {
+                }else {
+                    props.closeModal()
+                }
+            }}  >
+            <div className="gallery-modal-content" >
                 <img src={props.img[currentImageIndex]} alt="logo" onClick={click}/>
             </div>
         </div>
