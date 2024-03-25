@@ -17,7 +17,7 @@ export default function GalleryModal(props) {
         <div className="gallery-modal" onClick={
             (event)=>
             {
-                if(event.target.parentElement.className == 'gallery-modal-content') {
+                if(event.target.parentElement.className === 'gallery-modal-content') {
                 }else {
                     props.closeModal()
                 }
