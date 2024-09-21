@@ -93,7 +93,8 @@ let pics = [{
         img: [windmill, windmill_mu1],
         spec: "Acrylic on canvas board (60cm by 45cm) ",
         dimensions: "(60cm by 45cm)",
-        price: "80€ + PPH"
+        price: "80€ + PPH",
+        sold: true
 
     }, {
 
@@ -232,6 +233,7 @@ let pics = [{
         img: [paradise1],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
+        sold: true
 
     },
 
@@ -248,6 +250,7 @@ let pics = [{
         img: [paradise2],
         spec: "Acrylic on paper ",
         dimensions: "(80cm by 60cm)",
+        sold: true
 
     }, {
 
