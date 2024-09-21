@@ -5,6 +5,10 @@ import img_rebirth from "../images/mind_to_infinity_80_by_60_COMP.jpg";
 import img_rebirth_mu1 from "../images/mind_to_infinity_mu1.png";
 import img_rebirth_mu2 from "../images/mind_to_infinity_mu2.png";
 
+
+import img_communion from "../images/communion_50_by_60.jpg";
+import img_warrior from "../images/victory_60_by_60.jpg";
+
 import img_summer_party from "../images/summer_party_80_by_60_COMP.jpg";
 import img_summer_party_mu1 from "../images/summer_party_mu1.png";
 
@@ -56,7 +60,6 @@ import squid from "../images/squid_50_by_60_COMP.jpg";
 import uml from "../images/uml_40_by_40_COMP.jpg";
 
 
-
 import Modal from 'react-modal';
 import GalleryModal from "../common/GalleryModal";
 import Masonry from "react-responsive-masonry";
@@ -70,6 +73,25 @@ let pics = [{
     spec: "Acrylic on stretched canvas ",
     dimensions: "(80cm by 60cm)",
     price: "250€ + PPH"
+
+
+}, {
+
+    title: "Comunion X",
+    img: [img_communion],
+    spec: "Acrylic on stretched canvas",
+    dimensions: "(60cm by 80cm)",
+    price: "100€ + PPH (frame included)"
+
+
+}, {
+
+    title: "Warrior",
+        img: [img_warrior],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(80cm by 60cm)",
+        price: "100€ + PPH (frame included)"
+
 
 }, {
 
