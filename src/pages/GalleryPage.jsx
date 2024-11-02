@@ -248,17 +248,13 @@ let pics = [{
         img: [overpass, overpass_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
-
     }, {
-
         title: "Stranger than paradise series #1 -",
         img: [paradise1],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
         sold: true
-
     },
-
     {
         title: "Beasts at the Bar -",
         img: [bar],
@@ -267,19 +263,17 @@ let pics = [{
         price: "250€ + PPH"
     },
     {
-
         title: "Stranger than paradise series #2 -",
         img: [paradise2],
         spec: "Acrylic on paper ",
-        dimensions: "(80cm by 60cm)",
-        sold: true
-
+        dimensions: "(80cm by 60cm)"
     }, {
 
         title: "Stranger than paradise series #3 -",
         img: [paradise3],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
+        sold: true
 
     },
     {
