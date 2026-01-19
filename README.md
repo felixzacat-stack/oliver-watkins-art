@@ -11,7 +11,7 @@ Deploys automatically to Azure when committing to master, pushing and passing al
 (see azure-static-web...yml in gitub workflows. TODO why are there two yml files?)
 
 
-TODO
+TODO:
 
 trying to move shape-shop static app into shapeShopResourceGroup from shape-shop_group (a resource group). 
 Then move frontangle static app to a newly created resource group.
