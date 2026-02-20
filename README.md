@@ -1,6 +1,6 @@
 ## DEV
 
-To start the dev server for developement
+To start the dev server for developement.
 
 `npm start`
 
