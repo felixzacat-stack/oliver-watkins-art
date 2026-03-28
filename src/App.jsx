@@ -2,7 +2,7 @@ import React from 'react';
 
 import './App.scss';
 import Nav from "./Nav";
-import FrontPage from "./pages/FrontPage";
+import FrontPage from "./pages/FrontPage2";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
