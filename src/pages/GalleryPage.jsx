@@ -59,6 +59,21 @@ import squid from "../images/squid_50_by_60_COMP.jpg";
 
 import uml from "../images/uml_40_by_40_COMP.jpg";
 
+// import cubens from "../images/cubensis_80_by_60.jpg";
+import cubens from "../images/cubensis_80_by_60_COMP.jpg";
+// import frank from "../images/Frankestenstein_50_by_50.jpg";
+import frank from "../images/Frankestenstein_50_by_50_COMP.jpg";
+// import man_snake from "../images/man_snake_60_by_90.jpg";
+import man_snake from "../images/man_snake_60_by_90_COMP.jpg";
+// import uml from "../images/Parrhanas_60_by_90.jpg";
+import pirranhas from "../images/Parrhanas_60_by_90_COMP.jpg";
+// import uml from "../images/desynchronicity_60_by_90.jpg";
+import desynchronicity from "../images/desynchronicity_60_by_90_COMP.jpg";
+
+
+
+
+
 
 import Modal from 'react-modal';
 import GalleryModal from "../common/GalleryModal";
@@ -72,16 +87,84 @@ let pics = [{
         img_rebirth_mu2],
     spec: "Acrylic on stretched canvas ",
     dimensions: "(80cm by 60cm)",
-    price: "250€ + PPH"
+    price: "350€ + PPH"
 
+
+// }, {
+//
+//     title: "Comunion X",
+//     img: [img_communion],
+//     spec: "Acrylic on stretched canvas",
+//     dimensions: "(60cm by 80cm)",
+//     price: "100€ + PPH (frame included)"
 
 }, {
 
-    title: "Comunion X",
-    img: [img_communion],
+    title: "Man wrestling snake",
+    img: [man_snake],
     spec: "Acrylic on stretched canvas",
-    dimensions: "(60cm by 80cm)",
-    price: "100€ + PPH (frame included)"
+    dimensions: "(60cm by 90cm)",
+    price: "450€ + PPH"
+
+    // import man_snake from "../images/man_snake_60_by_90.jpg";
+    // import man_snake from "../images/man_snake_60_by_90_COMP.jpg";
+
+}, {
+
+    title: "Pirranhas",
+    img: [pirranhas],
+    spec: "Acrylic on stretched canvas",
+    dimensions: "(60cm by 90cm)",
+    price: "450€ + PPH"
+    // import uml from "../images/Parrhanas_60_by_90.jpg";
+    // import pirranhas from "../images/Parrhanas_60_by_90_COMP.jpg";
+
+}, {
+
+
+    title: "Keyhole - ",
+    img: [khole],
+    spec: "Acrylic on stretched canvas ",
+    dimensions: "(80cm by 60cm)",
+    price: "100€ + PH"
+
+}, {
+    title: "Desynchronicity",
+    img: [desynchronicity],
+    spec: "Acrylic on stretched canvas",
+    dimensions: "(60cm by 90cm)",
+    price: "450"
+
+// import uml from "../images/desynchronicity_60_by_90.jpg";
+//     import desynchronicity from "../images/desynchronicity_60_by_90_COMP.jpg";
+
+}, {
+
+    title: "Cubendemensis",
+    img: [cubens],
+    spec: "Acrylic on stretched canvas",
+    dimensions: "(60cm by 90cm)",
+    price: "450"
+
+    // import cubens from "../images/cubensis_80_by_60_COMP.jpg";
+
+
+}, {
+// import frank from "../images/Frankestenstein_50_by_50.jpg";
+//     import frank from "../images/Frankestenstein_50_by_50_COMP.jpg";
+
+
+
+
+    title: "Comunion X",
+    img: [frank],
+    spec: "Acrylic on stretched canvas",
+    dimensions: "(60cm by 90cm)",
+    price: "450"
+
+
+
+
 
 
 }, {
@@ -90,7 +173,7 @@ let pics = [{
         img: [img_warrior],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
-        price: "100€ + PPH (frame included)"
+        price: "300€ + PPH (frame included)"
 
 
 }, {
@@ -104,7 +187,7 @@ let pics = [{
     {
 
 
-        title: "Summer Party -",
+        title: "Summer ",
         img: [img_summer_party, img_summer_party_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
@@ -134,12 +217,12 @@ let pics = [{
         dimensions: "(80cm by 60cm)",
         price: "150€ + PH",
         sold: true
-    }, {
-        title: "Paris Texas -",
-        img: [broken_car],
-        spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
-        price: "150€ + PPH"
+    // }, {
+    //     title: "Paris Texas -",
+    //     img: [broken_car],
+    //     spec: "Acrylic on stretched canvas ",
+    //     dimensions: "(80cm by 60cm)",
+    //     price: "150€ + PPH"
 
     }, {
 
@@ -163,17 +246,11 @@ let pics = [{
         img: [figure],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
-        price: "50€ + PPH"
+        price: "50€ + PPH",
+        sold: true
     },
     {
 
-        title: "K-Hole of the spotless mind - ",
-        img: [khole],
-        spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
-        price: "100€ + PH"
-
-    }, {
 
         title: "Lady on Sofa -",
         img: [lady1, lady1_mu1],
@@ -184,7 +261,7 @@ let pics = [{
     },
     {
 
-        title: "Blue ",
+        title: "Plasmodesmata",
         img: [blue],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
@@ -199,22 +276,22 @@ let pics = [{
         price: "30€ + PH",
 
     },
-    {
-
-        title: "Figure #3 - ",
-        img: [lady3, lady3_mu1],
-        spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
-
-    },
-    {
-
-        title: "Abstract Lion - ",
-        img: [lion],
-        spec: "Acrylic on canvas board ",
-        dimensions: "(60cm by 45cm)",
-
-    },
+    // {
+    //
+    //     title: "Figure #3 - ",
+    //     img: [lady3, lady3_mu1],
+    //     spec: "Acrylic on stretched canvas ",
+    //     dimensions: "(80cm by 60cm)",
+    //
+    // },
+    // {
+    //
+    //     title: "Abstract Lion - ",
+    //     img: [lion],
+    //     spec: "Acrylic on canvas board ",
+    //     dimensions: "(60cm by 45cm)",
+    //
+    // },
     {
 
         title: "Awaken the Monster -",
@@ -255,13 +332,13 @@ let pics = [{
         dimensions: "(60cm by 45cm)",
         sold: true
     },
-    {
-        title: "Beasts at the Bar -",
-        img: [bar],
-        spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
-        price: "250€ + PPH"
-    },
+    // {
+    //     title: "Beasts at the Bar -",
+    //     img: [bar],
+    //     spec: "Acrylic on stretched canvas ",
+    //     dimensions: "(80cm by 60cm)",
+    //     price: "250€ + PPH"
+    // },
     {
         title: "Stranger than paradise series #2 -",
         img: [paradise2],
@@ -284,14 +361,14 @@ let pics = [{
         dimensions: "(60cm by 45cm)",
         price: "80€ + PH (frame included)",
     },
-    {
-
-        title: "Dream Gambit - ",
-        img: [queens_gambit],
-        spec: "Acrylic on canvas board  ",
-        dimensions: "(60cm by 45cm)",
-        price: "50€ + PH",
-    },
+    // {
+    //
+    //     title: "Dream Gambit - ",
+    //     img: [queens_gambit],
+    //     spec: "Acrylic on canvas board  ",
+    //     dimensions: "(60cm by 45cm)",
+    //     price: "50€ + PH",
+    // },
     {
 
         img: [shapes, shapes_mu1],

@@ -39,8 +39,13 @@ function FrontPage(props) {
                 </InView>
 
                 <p className={"text1"}>
-                My name is Oliver Watkins a Munich based artist. Abstract forms have always been about exploring the line between reality
-                and dreams.
+                Munich based artist.
+
+                    My work explores the shifting boundary between reality and dreams through abstract forms. Influenced by
+                    Henri Matisse, Pablo Picasso, and the strange, branching logic of 1980s “choose your own adventure” books, I approach
+                    painting as an open system rather than a fixed outcome.
+
+
                 </p>
             </div>
 
@@ -70,8 +75,14 @@ function FrontPage(props) {
 
                 <p className={"text2"}>
 
-                ...and works of figurative impressionism have always been about texture while still respecting the form.
-                Be it animals, figures walking on the beach, or bars with flaking wallpaper.
+
+                    Turning the canvas upside down isn’t just a cliché—it’s part of the process. Each piece moves through
+                    iterations: revising, disrupting, confusing. At times I’m pranking the work, at times the viewer, and often myself.
+
+                    There’s a strong current of Dada in this approach—playful, contradictory, and deliberately unresolved.
+
+                {/*...and works of figurative impressionism have always been about texture while still respecting the form.*/}
+                {/*Be it animals, figures walking on the beach, or bars with flaking wallpaper.*/}
                 </p>
             </div>
 
