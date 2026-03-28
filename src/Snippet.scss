@@ -1,0 +1,32 @@
+//@import "App.scss";
+//
+//.snippet-row {
+//  display: grid;
+//  grid-template-columns: repeat(6, 1fr);
+//  gap: 12px;
+//  align-items: center;
+//}
+//
+//.snippet-card {
+//  width: 100%;
+//  height: auto;
+//  opacity: 0;
+//  transform: translateX(-60px);
+//  transition: opacity 900ms ease, transform 900ms ease;
+//}
+//
+//.snippet-visible {
+//  opacity: 1;
+//  transform: translateX(0);
+//}
+//
+//.snippet-hidden {
+//  opacity: 0;
+//  transform: translateX(-60px);
+//}
+//
+//@media only screen and (max-width: $breakpoint-width-phone) {
+//  .snippet-row {
+//    grid-template-columns: repeat(2, 1fr);
+//  }
+//}

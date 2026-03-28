@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import img_rebirth from "../images/mind_to_infinity_80_by_60_COMP.jpg";
 import img_summer_party from "../images/summer_party_80_by_60_COMP.jpg";
 import img_dogs from "../images/dogs_COMP.jpg";
@@ -8,10 +8,34 @@ import img_cat_dinner from "../images/cat_dinner_50_by_60_COMP.jpg";
 
 import bar from "../images/bar_80_by_60_COMP.jpg";
 
+import snippet1 from "../images/snippets/snippet1.png";
+import snippet2 from "../images/snippets/snippet2.png";
+import snippet3 from "../images/snippets/snippet3.png";
+import snippet4 from "../images/snippets/snippet4.png";
+import snippet5 from "../images/snippets/snippet5.png";
+import snippet6 from "../images/snippets/snippet6.png";
+
 import "./FrontPage.scss"
 import {InView} from "react-intersection-observer";
 
+const snippetImages = [snippet1, snippet2, snippet3, snippet4, snippet5, snippet6];
+
+
+
 function FrontPage(props) {
+    const [visibleSnippets, setVisibleSnippets] = useState([]);
+
+    useEffect(() => {
+        const timeouts = snippetImages.map((_, index) => {
+            const delay = 300 + Math.random() * 2500 + index * 150;
+            return setTimeout(() => {
+                setVisibleSnippets(prev => [...prev, index]);
+            }, delay);
+        });
+
+        return () => timeouts.forEach(clearTimeout);
+    }, []);
+
     return (
 
         <div className={"container grid-container"}>
@@ -147,6 +171,18 @@ function FrontPage(props) {
                     }}
                 </InView>
             </div>
+
+            <div className="grid-item threewide snippet-row">
+                {snippetImages.map((src, index) => (
+                    <img
+                        key={src}
+                        src={src}
+                        alt={`snippet ${index + 1}`}
+                        className={`snippet-card ${visibleSnippets.includes(index) ? "snippet-visible" : "snippet-hidden"}`}
+                    />
+                ))}
+            </div>
+
         </div>
     );
 }
