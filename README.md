@@ -16,4 +16,10 @@ TODO:
 trying to move shape-shop static app into shapeShopResourceGroup from shape-shop_group (a resource group). 
 Then move frontangle static app to a newly created resource group.
 
+TODO:
+
+upgrade to vite
+
+
+
 
