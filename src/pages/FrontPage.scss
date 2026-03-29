@@ -1,105 +1,57 @@
-@import "../App.scss";
-
-.frontpage2 {
-  padding: 20px;
-}
-
-.frontpage2-first-row {
+.frontpage2-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 12px;
-  align-items: stretch;
-  margin-bottom: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  //grid-auto-rows: 1fr;
+  gap: 0;
+  //border: #c65376 dashed thick;
 }
 
-.frontpage2-left-stack {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 12px;
-  min-height: 440px;
-}
-
-.frontpage2-tile {
+.frontpage2-cell-no-span {
+  width: 100%;
+  //border: #5fc653 dashed thick;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 12px;
-  background: #f7f1f1;
+  padding: 0;
+  margin: 0;
 }
 
-.frontpage2-tile img {
+.text2 {
+  padding: 10px;
+}
+
+.frontpage2-cell-span-y{
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 2;
+
+  //border: #f1be41 dashed medium;
+  grid-row: span 2;
+  object-fit: fill;
   display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.frontpage2-cell-span-x{
+  aspect-ratio: 2 / 1;
+  //border: #b153c6 dashed thick;
+  grid-column: span 2;
+  object-fit: fill;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.frontpage2-cell-span-y img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.frontpage2-tile-1,
-.frontpage2-tile-3 {
-  min-height: 214px;
-}
-
-.frontpage2-tile-2,
-.frontpage2-tile-6 {
-  min-height: 440px;
-}
-
-.frontpage2-middle-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.frontpage2-blurb {
-  min-height: 440px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 24px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.frontpage2-third-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.frontpage2-stack-vertical {
-  min-height: 220px;
-}
-
-@media only screen and (max-width: $breakpoint-width-tablet) {
-  .frontpage2-first-row {
-    grid-template-columns: 1fr;
-  }
-
-  .frontpage2-left-stack {
-    min-height: auto;
-  }
-
-  .frontpage2-tile-1,
-  .frontpage2-tile-3,
-  .frontpage2-tile-2,
-  .frontpage2-tile-6,
-  .frontpage2-blurb,
-  .frontpage2-stack-vertical {
-    min-height: 180px;
-  }
-}
-
-@media only screen and (max-width: $breakpoint-width-phone) {
-  .frontpage2 {
-    padding: 10px;
-  }
-
-  .frontpage2-first-row,
-  .frontpage2-middle-row,
-  .frontpage2-third-row {
-    gap: 8px;
-  }
-
-  .frontpage2-blurb {
-    padding: 16px;
-  }
+.frontpage2-cell-span-x img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
