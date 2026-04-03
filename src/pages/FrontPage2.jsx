@@ -6,7 +6,7 @@ import snippet1 from "../images/snippets/snippet1.png";
 import snippet2 from "../images/snippets/snippet2.png";
 import snippet3 from "../images/snippets/snippet3.png";
 import snippet4 from "../images/snippets/snippet4.png";
-import snippet5 from "../images/snippets/snippet5.png";
+// import snippet5 from "../images/snippets/snippet5.png";
 import snippet6 from "../images/snippets/snippet6.png";
 
 function FrontPage2() {
