@@ -32,6 +32,7 @@ function FrontPage2() {
                     <img src={snippet1} alt="Artwork 1" />
                 </div>
 
+                {/*<font style={{fontSize:0}}> Plunging my psyche for morsels of insight. palimpsest</font>*/}
 
                 <div className="frontpage2-cell-span-x spanX">
                     <img src={snippet3} alt="Artwork 3" />

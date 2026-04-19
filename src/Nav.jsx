@@ -21,7 +21,6 @@ function Nav(props) {
     return (
         <nav className="main-menu">
             <ul>
-
                 <li>
                     <Link to="/" onClick={toggleCollapse.bind(this)} className={homeClassisActive}>
                         Home
