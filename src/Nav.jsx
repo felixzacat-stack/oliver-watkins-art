@@ -11,11 +11,11 @@ function Nav(props) {
     // const collapse = collapsed ? "collapse" : "";
     let location = useLocation();
 
-    const homeClassisActive = location.pathname === "/main" ? "active" : "";
+    const homeClassisActive = location.pathname === "/" || location.pathname === "/main" ? "active" : "";
+    const galleryClassisActive = location.pathname.startsWith("/gallery") ? "active" : "";
+    const commissionClassisActive = location.pathname.indexOf("commission") > 0 ? "active" : "";
+    const purchaseClassisActive = location.pathname.indexOf("purchase") > 0 ? "active" : "";
     const contactClassisActive = location.pathname.indexOf("contact") > 0 ? "active" : "";
-    const abstractClassisActive = location.pathname.indexOf("abstract") > 0 ? "active" : "";
-    const figurativeClassisActive = location.pathname.indexOf("figurative") > 0 ? "active" : "";
-    const portraitClassisActive = location.pathname.indexOf("portrait") > 0 ? "active" : "";
 
 
     return (
@@ -27,17 +27,17 @@ function Nav(props) {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/gallery" onClick={toggleCollapse.bind(this)} className={abstractClassisActive}>
+                    <Link to="/gallery" onClick={toggleCollapse.bind(this)} className={galleryClassisActive}>
                         Gallery
                     </Link>
                 </li>
                 <li>
-                    <Link to="/commission" onClick={toggleCollapse.bind(this)} className={figurativeClassisActive}>
+                    <Link to="/commission" onClick={toggleCollapse.bind(this)} className={commissionClassisActive}>
                         Commission
                     </Link>
                 </li>
                 <li>
-                    <Link to="/purchase" onClick={toggleCollapse.bind(this)} className={portraitClassisActive}>
+                    <Link to="/purchase" onClick={toggleCollapse.bind(this)} className={purchaseClassisActive}>
                         Purchase
                     </Link>
                 </li>

@@ -18,7 +18,9 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <FrontPage2 /> },
       { path: "/main", element: <FrontPage2 /> },
-      { path: "/gallery", element: <GalleryPage /> },
+      { path: "/gallery", element: <GalleryPage category="all" /> },
+      { path: "/gallery/abstract", element: <GalleryPage category="abstract" /> },
+      { path: "/gallery/portrait", element: <GalleryPage category="portrait" /> },
       { path: "/commission", element: <CommissionPage /> },
       { path: "/purchase", element: <PurchasePage /> },
       { path: "/contact", element: <ContactPage /> },

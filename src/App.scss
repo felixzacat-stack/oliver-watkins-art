@@ -14,24 +14,63 @@ li, a {
   font-family: "OstrichSans", serif;
 }
 
+.sticky-nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .App-header {
   display: flex;
-  top: 0;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-size: calc(10px + 2vmin);
-  position: sticky;
   background-color: #ffffff;
   padding: 10px;
-  z-index: 100;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease-in-out;
   /*border: 5px solid blue;*/
 
   margin-left:20%;
   margin-right:20%;
 
+}
+
+.gallery-sub-menu {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 6px 10px;
+  border-top: 1px solid rgba(198, 83, 118, 0.15);
+  margin-left: 20%;
+  margin-right: 20%;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 15px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #c65376;
+    text-transform: uppercase;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: #ff9900;
+    }
+
+    &.active {
+      color: #ff9900;
+    }
+  }
 }
 
 .App-title {

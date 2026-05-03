@@ -71,178 +71,137 @@ import pirranhas from "../images/Parrhanas_60_by_90_COMP.jpg";
 import desynchronicity from "../images/desynchronicity_60_by_90_COMP.jpg";
 
 
-
-
-
-
 import Modal from 'react-modal';
 import GalleryModal from "../common/GalleryModal";
 import Masonry from "react-responsive-masonry";
-// import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 
-let pics = [{
-    title: "ABSTRACT UNTITLED -",
-    img: [img_rebirth, img_rebirth_mu1,
-        img_rebirth_mu2],
-    spec: "Acrylic on stretched canvas ",
-    dimensions: "(80cm by 60cm)",
-    price: "350€ + PPH"
-
-
-// }, {
-//
-//     title: "Comunion X",
-//     img: [img_communion],
-//     spec: "Acrylic on stretched canvas",
-//     dimensions: "(60cm by 80cm)",
-//     price: "100€ + PPH (frame included)"
-
-}, {
-
-    title: "Man wrestling snake",
-    img: [man_snake],
-    spec: "Acrylic on stretched canvas",
-    dimensions: "(60cm by 90cm)",
-    price: "450€ + PPH"
-
-    // import man_snake from "../images/man_snake_60_by_90.jpg";
-    // import man_snake from "../images/man_snake_60_by_90_COMP.jpg";
-
-}, {
-
-    title: "Pirranhas",
-    img: [pirranhas],
-    spec: "Acrylic on stretched canvas",
-    dimensions: "(60cm by 90cm)",
-    price: "450€ + PPH"
-    // import uml from "../images/Parrhanas_60_by_90.jpg";
-    // import pirranhas from "../images/Parrhanas_60_by_90_COMP.jpg";
-
-}, {
-
-
-    title: "Keyhole - ",
-    img: [khole],
-    spec: "Acrylic on stretched canvas ",
-    dimensions: "(80cm by 60cm)",
-    price: "100€ + PH"
-
-}, {
-    title: "Desynchronicity",
-    img: [desynchronicity],
-    spec: "Acrylic on stretched canvas",
-    dimensions: "(60cm by 90cm)",
-    price: "450"
-
-// import uml from "../images/desynchronicity_60_by_90.jpg";
-//     import desynchronicity from "../images/desynchronicity_60_by_90_COMP.jpg";
-
-}, {
-
-    title: "Cubendemensis",
-    img: [cubens],
-    spec: "Acrylic on stretched canvas",
-    dimensions: "(60cm by 90cm)",
-    price: "450"
-
-    // import cubens from "../images/cubensis_80_by_60_COMP.jpg";
-
-
-}, {
-// import frank from "../images/Frankestenstein_50_by_50.jpg";
-//     import frank from "../images/Frankestenstein_50_by_50_COMP.jpg";
-
-
-
-
-    title: "Comunion X",
-    img: [frank],
-    spec: "Acrylic on stretched canvas",
-    dimensions: "(60cm by 90cm)",
-    price: "450"
-
-
-
-
-
-
-}, {
-
-    title: "Warrior",
+let pics = [
+    {
+        title: "ABSTRACT UNTITLED -",
+        category: "abstract",
+        img: [img_rebirth, img_rebirth_mu1, img_rebirth_mu2],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(80cm by 60cm)",
+        price: "350€ + PPH"
+    },
+    {
+        title: "Man wrestling snake",
+        category: "portrait",
+        img: [man_snake],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 90cm)",
+        price: "450€ + PPH"
+    },
+    {
+        title: "Pirranhas",
+        category: "portrait",
+        img: [pirranhas],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 90cm)",
+        price: "450€ + PPH"
+    },
+    {
+        title: "Keyhole - ",
+        category: "abstract",
+        img: [khole],
+        spec: "Acrylic on stretched canvas ",
+        dimensions: "(80cm by 60cm)",
+        price: "100€ + PH"
+    },
+    {
+        title: "Desynchronicity",
+        category: "abstract",
+        img: [desynchronicity],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 90cm)",
+        price: "450"
+    },
+    {
+        title: "Cubendemensis",
+        category: "abstract",
+        img: [cubens],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 90cm)",
+        price: "450"
+    },
+    {
+        title: "Comunion X",
+        category: "portrait",
+        img: [frank],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 90cm)",
+        price: "450"
+    },
+    {
+        title: "Warrior",
+        category: "portrait",
         img: [img_warrior],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "300€ + PPH (frame included)"
-
-
-}, {
-
-    title: "Agnes - ",
-    img: [agnes, agnes_mu1],
-    spec: "Acrylic on paper ",
-    dimensions: "(60cm by 45cm)",
-    price: "100€ + PPH (frame included)"
-},
+    },
     {
-
-
+        title: "Agnes - ",
+        category: "portrait",
+        img: [agnes, agnes_mu1],
+        spec: "Acrylic on paper ",
+        dimensions: "(60cm by 45cm)",
+        price: "100€ + PPH (frame included)"
+    },
+    {
         title: "Summer ",
+        category: "portrait",
         img: [img_summer_party, img_summer_party_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "250€ + PPH"
-    }, {
-
+    },
+    {
         title: "Windmill -",
+        category: "portrait",
         img: [windmill, windmill_mu1],
         spec: "Acrylic on canvas board (60cm by 45cm) ",
         dimensions: "(60cm by 45cm)",
         price: "80€ + PPH",
         sold: true
-
-    }, {
-
+    },
+    {
         title: "Impressions of Greece - ",
+        category: "abstract",
         img: [abstr_greece],
         spec: "Acrylic on paper ",
         dimensions: "(xxx)",
         price: "50€ + PPH"
     },
-
     {
         title: "Pink ",
+        category: "abstract",
         img: [pink],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "150€ + PH",
         sold: true
-    // }, {
-    //     title: "Paris Texas -",
-    //     img: [broken_car],
-    //     spec: "Acrylic on stretched canvas ",
-    //     dimensions: "(80cm by 60cm)",
-    //     price: "150€ + PPH"
-
-    }, {
-
+    },
+    {
         title: "Dinner with Cat - ",
+        category: "portrait",
         img: [cat_dinner],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "100€ + PPH"
     },
     {
-
         title: "Dog Siblings -",
+        category: "portrait",
         img: [dogs, dogs_mu1],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
         sold: true
-
-    }, {
-
+    },
+    {
         title: "Figure #1 - ",
+        category: "portrait",
         img: [figure],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
@@ -250,146 +209,122 @@ let pics = [{
         sold: true
     },
     {
-
-
         title: "Lady on Sofa -",
+        category: "portrait",
         img: [lady1, lady1_mu1],
         spec: "Acrylic on canvas board ",
         dimensions: "(60cm by 45cm)",
         price: "150€ + PH (frame included)"
-
     },
     {
-
         title: "Plasmodesmata",
+        category: "abstract",
         img: [blue],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "150€ + PH",
     },
     {
-
         title: "Figure #2 - ",
+        category: "portrait",
         img: [lady2],
         spec: "Acrylic on paper ",
         dimensions: "(80cm by 60cm)",
         price: "30€ + PH",
-
     },
-    // {
-    //
-    //     title: "Figure #3 - ",
-    //     img: [lady3, lady3_mu1],
-    //     spec: "Acrylic on stretched canvas ",
-    //     dimensions: "(80cm by 60cm)",
-    //
-    // },
-    // {
-    //
-    //     title: "Abstract Lion - ",
-    //     img: [lion],
-    //     spec: "Acrylic on canvas board ",
-    //     dimensions: "(60cm by 45cm)",
-    //
-    // },
     {
-
         title: "Awaken the Monster -",
+        category: "portrait",
         img: [monster],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "40€ + PH",
     },
     {
-
         title: "UML - ",
+        category: "abstract",
         img: [uml],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(40cm by 40cm)",
         price: "60€ + PH",
-    }, {
-
+    },
+    {
         title: "Squid - ",
+        category: "portrait",
         img: [squid],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(50cm by 60cm)",
         price: "50€ + PH",
-    }, {
+    },
+    {
         title: "Abstract X - ",
+        category: "abstract",
         img: [abstractX, abstractX_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(40cm by 40cm)",
         price: "80€ + PH",
-    }, {
+    },
+    {
         title: "Overpass - ",
+        category: "abstract",
         img: [overpass, overpass_mu1],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
-    }, {
+    },
+    {
         title: "Stranger than paradise series #1 -",
+        category: "abstract",
         img: [paradise1],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
         sold: true
     },
-    // {
-    //     title: "Beasts at the Bar -",
-    //     img: [bar],
-    //     spec: "Acrylic on stretched canvas ",
-    //     dimensions: "(80cm by 60cm)",
-    //     price: "250€ + PPH"
-    // },
     {
         title: "Stranger than paradise series #2 -",
+        category: "abstract",
         img: [paradise2],
         spec: "Acrylic on paper ",
         dimensions: "(80cm by 60cm)"
-    }, {
-
+    },
+    {
         title: "Stranger than paradise series #3 -",
+        category: "abstract",
         img: [paradise3],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
         sold: true
-
     },
     {
-
         title: "The literary boor - ",
+        category: "portrait",
         img: [perm_vacation, perm_vacation_mu1],
         spec: "Acrylic on paper   ",
         dimensions: "(60cm by 45cm)",
         price: "80€ + PH (frame included)",
     },
-    // {
-    //
-    //     title: "Dream Gambit - ",
-    //     img: [queens_gambit],
-    //     spec: "Acrylic on canvas board  ",
-    //     dimensions: "(60cm by 45cm)",
-    //     price: "50€ + PH",
-    // },
     {
-
+        category: "abstract",
         img: [shapes, shapes_mu1],
         spec: "Acrylic on paper ",
         dimensions: "(60cm by 45cm)",
     },
     {
         title: "Orange ",
+        category: "abstract",
         img: [orange],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "150€ + PH",
     },
-
 ]
 
 
-export default function GalleryPage() {
+export default function GalleryPage({ category = "all" }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [imgModal, setImgModal] = useState();
+
+    const filteredPics = category === "all" ? pics : pics.filter(p => p.category === category);
 
     function openModal(img) {
         setImgModal(img)
@@ -407,14 +342,7 @@ export default function GalleryPage() {
     return (
 
         <div className={"gallery-container container"}>
-            {/*<ResponsiveMasonry*/}
-            {/*    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}*/}
-            {/*>*/}
-
-
-            <Masonry
-                // columnsCount={3} gutter="10px"
-            >
+            <Masonry>
 
                 {isOpen && (
                     <GalleryModal
@@ -425,7 +353,7 @@ export default function GalleryPage() {
                     </GalleryModal>
                 )}
                 {
-                    pics && pics.map(el =>
+                    filteredPics && filteredPics.map(el =>
                         <div className="gallery-grid-item">
                             <img onClick={() => openModal(el.img)} src={el.img[0]} alt="logo"/>
                             <div className="gallery-picture-description">
@@ -440,12 +368,8 @@ export default function GalleryPage() {
                     )
                 }
             </Masonry>
-            {/*</ResponsiveMasonry>*/}
 
         </div>
 
     );
 }
-
-
-
