@@ -1,6 +1,7 @@
 import React from 'react';
 
 function PurchasePage() {
+    document.title = "Purchase | Oliver Watkins Art";
     return (
         <div className={"container"} >
 

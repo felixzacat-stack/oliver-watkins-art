@@ -13,6 +13,7 @@ import React from 'react';
 // import img_at_the_bar from "../images/ac63.jpg";
 
 function ContactPage(props) {
+    document.title = "Contact | Oliver Watkins Art";
     return (
         <div className={"container"} >
         <p className={"text1"}>

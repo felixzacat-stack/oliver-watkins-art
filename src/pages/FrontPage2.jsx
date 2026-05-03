@@ -10,6 +10,7 @@ import snippet4 from "../images/snippets/snippet4.png";
 import snippet6 from "../images/snippets/snippet6.png";
 
 function FrontPage2() {
+    document.title = "Oliver Watkins Art";
     return (
         <div className="container frontpage2">
             <div className="frontpage2-grid">

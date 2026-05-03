@@ -1,6 +1,7 @@
 import React from 'react';
 
 function CommissionPage(props) {
+    document.title = "Commission | Oliver Watkins Art";
     return (
         <div className={"container"} >
             <p className={"text1"}>
