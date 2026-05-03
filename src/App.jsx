@@ -31,6 +31,11 @@ function App() {
                                 </Link>
                             </li>
                             <li>
+                                <Link to="/gallery/figurative" className={location.pathname === '/gallery/figurative' ? 'active' : ''}>
+                                    Figurative
+                                </Link>
+                            </li>
+                            <li>
                                 <Link to="/gallery/portrait" className={location.pathname === '/gallery/portrait' ? 'active' : ''}>
                                     Portrait
                                 </Link>

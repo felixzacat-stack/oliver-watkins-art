@@ -20,6 +20,7 @@ export const router = createBrowserRouter([
       { path: "/main", element: <FrontPage2 /> },
       { path: "/gallery", element: <GalleryPage category="all" /> },
       { path: "/gallery/abstract", element: <GalleryPage category="abstract" /> },
+      { path: "/gallery/figurative", element: <GalleryPage category="figurative" /> },
       { path: "/gallery/portrait", element: <GalleryPage category="portrait" /> },
       { path: "/commission", element: <CommissionPage /> },
       { path: "/purchase", element: <PurchasePage /> },
