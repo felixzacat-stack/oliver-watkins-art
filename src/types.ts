@@ -5,6 +5,7 @@ export enum Category {
 }
 
 export interface Pic {
+  slug: string;
   title?: string;
   category: Category[];
   img: string[];

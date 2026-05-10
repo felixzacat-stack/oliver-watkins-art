@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import App from "src/App";
 
 import GalleryPage from "src/pages/GalleryPage";
+import PaintingDetailPage from "src/pages/PaintingDetailPage";
 import ContactPage from "src/pages/ContactPage";
 import CommissionPage from "src/pages/CommissionPage";
 import ErrorPage from "src/pages/ErrorPage";
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: "/gallery/abstract", element: <GalleryPage category="abstract" /> },
       { path: "/gallery/figurative", element: <GalleryPage category="figurative" /> },
       { path: "/gallery/portrait", element: <GalleryPage category="portrait" /> },
+      { path: "/gallery/detail/:slug", element: <PaintingDetailPage /> },
       { path: "/commission", element: <CommissionPage /> },
       { path: "/purchase", element: <PurchasePage /> },
       { path: "/contact", element: <ContactPage /> },

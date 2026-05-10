@@ -23,6 +23,8 @@
     }
 
     .gallery-picture-description {
+      display: block;
+      text-decoration: none;
       //border: 2px solid rgb(0, 51, 255);
       padding: 20px 10px 20px 10px;
       //font-size: 14px;
@@ -30,6 +32,12 @@
       color: #6d7377;
       font-family: 'roboto', Helvetica, Arial, sans-serif;
       text-transform: uppercase;
+
+      &:hover {
+        .gallery-text1 {
+          text-decoration: underline;
+        }
+      }
 
       .gallery-text1 {
         text-align: left;

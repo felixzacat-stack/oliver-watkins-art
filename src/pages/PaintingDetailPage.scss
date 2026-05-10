@@ -1,0 +1,80 @@
+@import "../Global.scss";
+
+.detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .detail-back {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #c65376;
+    text-decoration: none;
+    font-family: 'roboto', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    &:hover {
+      color: #ff9900;
+    }
+  }
+
+  .detail-image-wrapper {
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+  }
+
+  .detail-description {
+    padding: 24px 0 0;
+    font-family: 'roboto', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    color: #6d7377;
+    text-transform: uppercase;
+
+    .gallery-text1 {
+      color: #c65376;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .gallery-text2 {
+      margin-bottom: 4px;
+    }
+    .gallery-text3 {
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .gallery-text4 {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+  }
+
+  .detail-sold {
+    display: inline-block;
+    margin-top: 8px;
+    background: rebeccapurple;
+    color: white;
+    padding: 4px 12px;
+    font-family: 'roboto', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+  }
+}
+
+.detail-not-found {
+  padding: 40px;
+  font-family: 'roboto', Helvetica, Arial, sans-serif;
+  color: #6d7377;
+
+  a {
+    color: #c65376;
+    &:hover { color: #ff9900; }
+  }
+}
