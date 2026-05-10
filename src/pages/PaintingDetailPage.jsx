@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router';
 
 import pics from 'src/data/pics';
@@ -19,6 +19,9 @@ export default function PaintingDetailPage() {
 
     document.title = `${pic.title || 'Artwork'} | Oliver Watkins Art`;
 
+    const [activeImg, setActiveImg] = useState(pic.img[0]);
+    const hasMultiple = pic.img.length > 1;
+
     return (
         <div className="detail-container">
             <div className="detail-left">
@@ -30,9 +33,22 @@ export default function PaintingDetailPage() {
                     {pic.price && <div className="gallery-text4">{pic.price}</div>}
                     {pic.sold && <div className="detail-sold">SOLD</div>}
                 </div>
+                {hasMultiple && (
+                    <div className="detail-thumbnails">
+                        {pic.img.map((src, i) => (
+                            <img
+                                key={i}
+                                src={src}
+                                alt={`${pic.title || 'Artwork'} view ${i + 1}`}
+                                className={src === activeImg ? 'active' : ''}
+                                onClick={() => setActiveImg(src)}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
             <div className="detail-image-wrapper">
-                <img src={pic.img[0]} alt={pic.title || 'Artwork'} />
+                <img src={activeImg} alt={pic.title || 'Artwork'} />
             </div>
         </div>
     );
