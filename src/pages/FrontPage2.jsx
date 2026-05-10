@@ -1,78 +1,43 @@
 import React from "react";
+import { Link } from "react-router";
 
 import "./FrontPage.scss";
 
+import heroImg from "../images/snippets/snippet2.png";
 import snippet1 from "../images/snippets/snippet1.png";
-import snippet2 from "../images/snippets/snippet2.png";
 import snippet3 from "../images/snippets/snippet3.png";
 import snippet4 from "../images/snippets/snippet4.png";
-// import snippet5 from "../images/snippets/snippet5.png";
 import snippet6 from "../images/snippets/snippet6.png";
 
 function FrontPage2() {
     document.title = "Oliver Watkins Art";
     return (
-        <div className="container frontpage2">
-            <div className="frontpage2-grid">
-
-                <div className="frontpage2-cell-span-y spanY">
-                    <img src={snippet2} alt="Artwork 2" />
+        <div className="frontpage">
+            <section className="hero">
+                <div className="hero-text">
+                    <p className="hero-bio">
+                        Munich based artist exploring the shifting boundary between reality and dreams through abstract forms.
+                        Influenced by Matisse, Picasso, and the strange branching logic of
+                        choose-your-own-adventure books, I approach painting as an open system rather than a fixed outcome.
+                    </p>
+                    <p className="hero-bio">
+                        Turning the canvas upside down isn't just a cliché — it's part of the process.
+                        Each piece moves through iterations: revising, disrupting, confusing.
+                    </p>
+                    <Link to="/gallery" className="hero-cta">View Gallery →</Link>
                 </div>
-
-
-
-                <div className="frontpage2-cell-no-span">
-                        <p className="text2">
-                            Munich based artist exploring the shifting boundary between reality and dreams through abstract forms.
-                            Influenced by Matisse, Picasso, and the strange branching logic of
-                            choose-your-own-adventure books, I approach painting as an open system rather than a fixed outcome.
-                        </p>
+                <div className="hero-image">
+                    <img src={heroImg} alt="Artwork" />
                 </div>
-
-                <div className="frontpage2-cell-span-x spanX">
-                    <img src={snippet1} alt="Artwork 1" />
-                </div>
-
-                {/*<font style={{fontSize:0}}> Plunging my psyche for morsels of insight. palimpsest</font>*/}
-
-                <div className="frontpage2-cell-span-x spanX">
-                    <img src={snippet3} alt="Artwork 3" />
-                </div>
-
-
-                {/*<div className="frontpage2-cell">*/}
-                {/*    <img src={snippet5} alt="Artwork 5" />*/}
-                {/*</div>*/}
-
-                <div className="frontpage2-cell-span-y spanY">
-                    <img src={snippet6} alt="Artwork 6" />
-                </div>
-
-
-                <div className="frontpage2-cell-span-x spanX">
-                    <img src={snippet4} alt="Artwork 4" />
-                </div>
-
-                <div className="frontpage2-cell-no-span">
-                        <p className="text2">
-                            Turning the canvas upside down isn’t just a cliché — it’s part of the process.
-                            Each piece moves through iterations: revising, disrupting, confusing.
-                        </p>
-                </div>
-            </div>
+            </section>
+            <section className="snippet-strip">
+                <img src={snippet1} alt="Artwork" />
+                <img src={snippet3} alt="Artwork" />
+                <img src={snippet4} alt="Artwork" />
+                <img src={snippet6} alt="Artwork" />
+            </section>
         </div>
     );
 }
-
-
-// <p>
-//     My work explores the shifting boundary between reality and dreams through abstract forms.
-//     Influenced by Henri Matisse, Pablo Picasso, and the strange branching logic of
-//     choose-your-own-adventure books, I approach painting as an open system rather than a fixed outcome.
-// </p>
-// <p>
-//     Turning the canvas upside down isn’t just a cliché — it’s part of the process.
-//     Each piece moves through iterations: revising, disrupting, confusing.
-// </p>
 
 export default FrontPage2;

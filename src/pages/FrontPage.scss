@@ -1,57 +1,92 @@
-.frontpage2-grid {
+@import "../Global.scss";
+
+.frontpage {
+  margin-left: 20%;
+  margin-right: 20%;
+  background: rgba(255, 98, 0, 0.07);
+}
+
+.hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 60px;
+  padding: 60px 40px;
+  min-height: 70vh;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-bio {
+  font-family: 'roboto', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  color: #6d7377;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.hero-cta {
+  display: inline-block;
+  margin-top: 16px;
+  color: #c65376;
+  text-decoration: none;
+  font-family: 'roboto', Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #c65376;
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+
+  &:hover {
+    color: #ff9900;
+    border-color: #ff9900;
+  }
+}
+
+.hero-image {
+  flex: 1;
+
+  img {
+    width: 100%;
+    max-height: 75vh;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.snippet-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  //grid-auto-rows: 1fr;
-  gap: 0;
-  //border: #c65376 dashed thick;
+
+  img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
 }
 
-.frontpage2-cell-no-span {
-  width: 100%;
-  //border: #5fc653 dashed thick;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-}
+@media only screen and (max-width: $breakpoint-width-tablet) {
+  .frontpage {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
 
-.text2 {
-  padding: 10px;
-}
+  .hero {
+    flex-direction: column-reverse;
+    padding: 30px 20px;
+    min-height: auto;
+    gap: 30px;
+  }
 
-.frontpage2-cell-span-y{
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1 / 2;
+  .hero-image {
+    width: 100%;
+  }
 
-  //border: #f1be41 dashed medium;
-  grid-row: span 2;
-  object-fit: fill;
-  display: block;
-  padding: 0;
-  margin: 0;
-}
-
-.frontpage2-cell-span-x{
-  aspect-ratio: 2 / 1;
-  //border: #b153c6 dashed thick;
-  grid-column: span 2;
-  object-fit: fill;
-  display: block;
-  padding: 0;
-  margin: 0;
-}
-
-.frontpage2-cell-span-y img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.frontpage2-cell-span-x img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  .snippet-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
