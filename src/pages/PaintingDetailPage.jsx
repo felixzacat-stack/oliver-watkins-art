@@ -20,17 +20,19 @@ export default function PaintingDetailPage() {
     document.title = `${pic.title || 'Artwork'} | Oliver Watkins Art`;
 
     return (
-        <div className="detail-container container">
-            <Link to="/gallery" className="detail-back">← Back to gallery</Link>
+        <div className="detail-container">
+            <div className="detail-left">
+                <Link to="/gallery" className="detail-back">← Back to gallery</Link>
+                <div className="detail-description">
+                    {pic.title && <div className="gallery-text1">{pic.title}</div>}
+                    <div className="gallery-text2">{pic.spec}</div>
+                    <div className="gallery-text3">{pic.dimensions}</div>
+                    {pic.price && <div className="gallery-text4">{pic.price}</div>}
+                    {pic.sold && <div className="detail-sold">SOLD</div>}
+                </div>
+            </div>
             <div className="detail-image-wrapper">
                 <img src={pic.img[0]} alt={pic.title || 'Artwork'} />
-            </div>
-            <div className="detail-description">
-                {pic.title && <div className="gallery-text1">{pic.title}</div>}
-                <div className="gallery-text2">{pic.spec}</div>
-                <div className="gallery-text3">{pic.dimensions}</div>
-                {pic.price && <div className="gallery-text4">{pic.price}</div>}
-                {pic.sold && <div className="detail-sold">SOLD</div>}
             </div>
         </div>
     );
