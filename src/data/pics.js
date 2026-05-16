@@ -43,6 +43,10 @@ import man_snake_mu1 from "src/images/man_snake_60_by_90_mu1.jpg";
 import man_snake_mu2 from "src/images/man_snake_60_by_90_mu2.jpg";
 import pirranhas from "src/images/Parrhanas_60_by_90_COMP.jpg";
 import desynchronicity from "src/images/desynchronicity_60_by_90_COMP.jpg";
+import desynchronicity_mu1 from "src/images/desynchronicity_60_by_90_mu1.jpg";
+import desynchronicity_mu2 from "src/images/desynchronicity_60_by_90_mu2.jpg";
+import desynchronicity_mu3 from "src/images/desynchronicity_60_by_90_mu3.jpg";
+import desynchronicity_mu4 from "src/images/desynchronicity_60_by_90_mu4.jpg";
 
 const { Abstract, Figurative, Portrait } = Category;
 
@@ -88,7 +92,7 @@ const pics = [
         slug: "desynchronicity",
         title: "Desynchronicity",
         category: [Abstract],
-        img: [desynchronicity],
+        img: [desynchronicity, desynchronicity_mu1, desynchronicity_mu2, desynchronicity_mu3, desynchronicity_mu4],
         spec: "Acrylic on stretched canvas",
         dimensions: "(60cm by 90cm)",
         price: "450"
