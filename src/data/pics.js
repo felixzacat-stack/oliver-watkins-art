@@ -39,6 +39,8 @@ import squid from "src/images/squid_50_by_60_COMP.jpg";
 import cubens from "src/images/cubensis_80_by_60_COMP.jpg";
 import frank from "src/images/Frankestenstein_50_by_50_COMP.jpg";
 import man_snake from "src/images/man_snake_60_by_90_COMP.jpg";
+import man_snake_mu1 from "src/images/man_snake_60_by_90_mu1.jpg";
+import man_snake_mu2 from "src/images/man_snake_60_by_90_mu2.jpg";
 import pirranhas from "src/images/Parrhanas_60_by_90_COMP.jpg";
 import desynchronicity from "src/images/desynchronicity_60_by_90_COMP.jpg";
 
@@ -59,7 +61,7 @@ const pics = [
         slug: "man-wrestling-snake",
         title: "Man wrestling snake",
         category: [Abstract],
-        img: [man_snake],
+        img: [man_snake, man_snake_mu1, man_snake_mu2],
         spec: "Acrylic on stretched canvas",
         dimensions: "(60cm by 90cm)",
         price: "450€ + PPH"
