@@ -48,6 +48,39 @@ import desynchronicity_mu2 from "src/images/desynchronicity_60_by_90_mu2.jpg";
 import desynchronicity_mu3 from "src/images/desynchronicity_60_by_90_mu3.jpg";
 import desynchronicity_mu4 from "src/images/desynchronicity_60_by_90_mu4.jpg";
 
+import deity from "src/images/deity_60_by_45.jpg";
+import deity_mu1 from "src/images/deity_60_by_45_mu1.jpg";
+import deity_mu2 from "src/images/deity_60_by_45_mu2.jpg";
+
+import octopus from "src/images/octopus_90_by_60_COMP.jpg";
+import octopus_mu1 from "src/images/octopus_90_by_60_mu1.jpg";
+import octopus_mu2 from "src/images/octopus_90_by_60_mu2.jpg";
+import octopus_mu3 from "src/images/ocotpus_90_by_60_mu3.jpg";
+import octopus_mu4 from "src/images/octopus_90_by_60_mu4.jpg";
+import octopus_mu5 from "src/images/octopus_90_by_60_mu5.jpg";
+
+import ship from "src/images/ship_60_by_45_COMP.jpg";
+import ship_mu1 from "src/images/ship_60_by_45_mu1.jpg";
+import ship_mu2 from "src/images/ship_60_by_45_mu2.jpg";
+import ship_mu3 from "src/images/ship_60_by_45_mu3.jpg";
+
+import img_rebirth_mu3 from "src/images/mind_to_infinity_80_by_60_mu1.jpg";
+import img_rebirth_mu4 from "src/images/mind_to_infinity_80_by_60_mu2.jpg";
+import img_rebirth_mu5 from "src/images/mind_to_infinity_80_by_60_mu3.jpg";
+import img_rebirth_mu6 from "src/images/mind_to_infinity_80_by_60_mu4.jpg";
+
+import pirranhas_mu1 from "src/images/Parrhanas_60_by_90_mu1.jpg";
+import pirranhas_mu2 from "src/images/Parrhanas_60_by_90_mu2.jpg";
+import pirranhas_mu3 from "src/images/Parrhanas_60_by_90_mu3.jpg";
+import pirranhas_mu4 from "src/images/Parrhanas_60_by_90_mu4.jpg";
+
+import img_warrior_mu1 from "src/images/victory_80_by_60_mu1.jpg";
+import img_warrior_mu2 from "src/images/victory_80_by_60_mu2.jpg";
+import img_warrior_mu3 from "src/images/victory_80_by_60_mu3.jpg";
+
+import blue_mu1 from "src/images/blue_60_by_40_mu1.jpg";
+import blue_mu2 from "src/images/blue_60_by_40_mu2.jpg";
+
 const { Abstract, Figurative, Portrait } = Category;
 
 /** @type {import('src/types').Pic[]} */
@@ -56,7 +89,7 @@ const pics = [
         slug: "abstract-untitled",
         title: "ABSTRACT UNTITLED -",
         category: [Abstract],
-        img: [img_rebirth, img_rebirth_mu1, img_rebirth_mu2],
+        img: [img_rebirth, img_rebirth_mu1, img_rebirth_mu2, img_rebirth_mu3, img_rebirth_mu4, img_rebirth_mu5, img_rebirth_mu6],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "350€ + PPH"
@@ -71,10 +104,34 @@ const pics = [
         price: "450€ + PPH"
     },
     {
+        slug: "deity",
+        title: "Deity",
+        category: [Abstract],
+        img: [deity, deity_mu1, deity_mu2],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 45cm)",
+    },
+    {
+        slug: "octopus",
+        title: "Octopus",
+        category: [Abstract],
+        img: [octopus, octopus_mu1, octopus_mu2, octopus_mu3, octopus_mu4, octopus_mu5],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(90cm by 60cm)",
+    },
+    {
+        slug: "ship",
+        title: "Ship",
+        category: [Abstract],
+        img: [ship, ship_mu1, ship_mu2, ship_mu3],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 45cm)",
+    },
+    {
         slug: "pirranhas",
         title: "Pirranhas",
         category: [Abstract],
-        img: [pirranhas],
+        img: [pirranhas, pirranhas_mu1, pirranhas_mu2, pirranhas_mu3, pirranhas_mu4],
         spec: "Acrylic on stretched canvas",
         dimensions: "(60cm by 90cm)",
         price: "450€ + PPH"
@@ -119,7 +176,7 @@ const pics = [
         slug: "warrior",
         title: "Warrior",
         category: [Abstract],
-        img: [img_warrior],
+        img: [img_warrior, img_warrior_mu1, img_warrior_mu2, img_warrior_mu3],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "300€ + PPH (frame included)"
@@ -212,7 +269,7 @@ const pics = [
         slug: "plasmodesmata",
         title: "Plasmodesmata",
         category: [Abstract],
-        img: [blue],
+        img: [blue, blue_mu1, blue_mu2],
         spec: "Acrylic on stretched canvas ",
         dimensions: "(80cm by 60cm)",
         price: "150€ + PH",
@@ -312,6 +369,7 @@ const pics = [
         dimensions: "(80cm by 60cm)",
         price: "150€ + PH",
     },
+
 ];
 
 export default pics;
