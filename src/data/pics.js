@@ -41,7 +41,7 @@ import frank from "src/images/Frankestenstein_50_by_50_COMP.jpg";
 import man_snake from "src/images/man_snake_60_by_90_COMP.jpg";
 import man_snake_mu1 from "src/images/man_snake_60_by_90_mu1.jpg";
 import man_snake_mu2 from "src/images/man_snake_60_by_90_mu2.jpg";
-import pirranhas from "src/images/Parrhanas_60_by_90_COMP.jpg";
+import pirranhas from "src/images/pirranhas_60_by_90_COMP.jpg";
 import desynchronicity from "src/images/desynchronicity_60_by_90_COMP.jpg";
 import desynchronicity_mu1 from "src/images/desynchronicity_60_by_90_mu1.jpg";
 import desynchronicity_mu2 from "src/images/desynchronicity_60_by_90_mu2.jpg";
@@ -69,10 +69,10 @@ import img_rebirth_mu4 from "src/images/mind_to_infinity_80_by_60_mu2.jpg";
 import img_rebirth_mu5 from "src/images/mind_to_infinity_80_by_60_mu3.jpg";
 import img_rebirth_mu6 from "src/images/mind_to_infinity_80_by_60_mu4.jpg";
 
-import pirranhas_mu1 from "src/images/Parrhanas_60_by_90_mu1.jpg";
-import pirranhas_mu2 from "src/images/Parrhanas_60_by_90_mu2.jpg";
-import pirranhas_mu3 from "src/images/Parrhanas_60_by_90_mu3.jpg";
-import pirranhas_mu4 from "src/images/Parrhanas_60_by_90_mu4.jpg";
+import pirranhas_mu1 from "src/images/pirranhas_60_by_90_mu1.jpg";
+import pirranhas_mu2 from "src/images/pirranhas_60_by_90_mu2.jpg";
+import pirranhas_mu3 from "src/images/pirranhas_60_by_90_mu3.jpg";
+import pirranhas_mu4 from "src/images/pirranhas_60_by_90_mu4.jpg";
 
 import img_warrior_mu1 from "src/images/victory_80_by_60_mu1.jpg";
 import img_warrior_mu2 from "src/images/victory_80_by_60_mu2.jpg";
