@@ -1,27 +1,27 @@
-import { Category } from 'src/types';
+﻿import { Category } from 'src/types';
 
-import img_rebirth from "src/images/mind_to_infinity_80_by_60_COMP.jpg";
+import img_rebirth from "src/images/mind_to_infinity_80x60_COMP.jpg";
 import img_rebirth_mu1 from "src/images/mind_to_infinity_mu1.png";
 import img_rebirth_mu2 from "src/images/mind_to_infinity_mu2.png";
 
-import img_warrior from "src/images/victory_60_by_60.jpg";
-import img_summer_party from "src/images/summer_party_80_by_60_COMP.jpg";
+import img_warrior from "src/images/victory_60x60.jpg";
+import img_summer_party from "src/images/summer_party_80x60_COMP.jpg";
 import img_summer_party_mu1 from "src/images/summer_party_mu1.png";
-import windmill from "src/images/windmill_60_by_45_COMP.jpg";
+import windmill from "src/images/windmill_60x45_COMP.jpg";
 import windmill_mu1 from "src/images/windmill_mu1.png";
 import abstr_greece from "src/images/abstract_greece_COMP.jpg";
 import agnes from "src/images/agnes_COMP.jpg";
 import agnes_mu1 from "src/images/agnes_mu1.jpg";
-import cat_dinner from "src/images/cat_dinner_50_by_60_COMP.jpg";
+import cat_dinner from "src/images/cat_dinner_50x60_COMP.jpg";
 import dogs from "src/images/dogs_COMP.jpg";
 import dogs_mu1 from "src/images/dogs_mu1.jpg";
 import figure from "src/images/figure_COMP.jpg";
-import khole from "src/images/khole_60_by_45_COMP.jpg";
+import khole from "src/images/khole_60x45_COMP.jpg";
 import lady1 from "src/images/lady_1_COMP.jpg";
 import lady1_mu1 from "src/images/lady_1_mu1.jpg";
 import lady2 from "src/images/lady_2_COMP.jpg";
 import monster from "src/images/monster_COMP.jpg";
-import overpass from "src/images/overpass_70_by_50_COMP.jpg";
+import overpass from "src/images/overpass_70x50_COMP.jpg";
 import overpass_mu1 from "src/images/overpass_mu1.png";
 import paradise1 from "src/images/paradise_1_COMP.jpg";
 import paradise2 from "src/images/paradise_2_COMP.jpg";
@@ -35,51 +35,51 @@ import orange from "src/images/orange_COMP.jpg";
 import blue from "src/images/blue_COMP.jpg";
 import abstractX from "src/images/abstractX_COMP.jpg";
 import abstractX_mu1 from "src/images/abstractX_mu.jpg";
-import squid from "src/images/squid_50_by_60_COMP.jpg";
-import cubens from "src/images/cubensis_80_by_60_COMP.jpg";
-import frank from "src/images/Frankestenstein_50_by_50_COMP.jpg";
-import man_snake from "src/images/man_snake_60_by_90_COMP.jpg";
-import man_snake_mu1 from "src/images/man_snake_60_by_90_mu1.jpg";
-import man_snake_mu2 from "src/images/man_snake_60_by_90_mu2.jpg";
-import pirranhas from "src/images/pirranhas_60_by_90_COMP.jpg";
-import desynchronicity from "src/images/desynchronicity_60_by_90_COMP.jpg";
-import desynchronicity_mu1 from "src/images/desynchronicity_60_by_90_mu1.jpg";
-import desynchronicity_mu2 from "src/images/desynchronicity_60_by_90_mu2.jpg";
-import desynchronicity_mu3 from "src/images/desynchronicity_60_by_90_mu3.jpg";
-import desynchronicity_mu4 from "src/images/desynchronicity_60_by_90_mu4.jpg";
+import squid from "src/images/squid_50x60_COMP.jpg";
+import cubens from "src/images/cubensis_80x60_COMP.jpg";
+import frank from "src/images/Frankestenstein_50x50_COMP.jpg";
+import man_snake from "src/images/man_snake_60x90_COMP.jpg";
+import man_snake_mu1 from "src/images/man_snake_60x90_mu1.jpg";
+import man_snake_mu2 from "src/images/man_snake_60x90_mu2.jpg";
+import pirranhas from "src/images/pirranhas_60x90_COMP.jpg";
+import desynchronicity from "src/images/desynchronicity_60x90_COMP.jpg";
+import desynchronicity_mu1 from "src/images/desynchronicity_60x90_mu1.jpg";
+import desynchronicity_mu2 from "src/images/desynchronicity_60x90_mu2.jpg";
+import desynchronicity_mu3 from "src/images/desynchronicity_60x90_mu3.jpg";
+import desynchronicity_mu4 from "src/images/desynchronicity_60x90_mu4.jpg";
 
-import deity from "src/images/deity_60_by_45.jpg";
-import deity_mu1 from "src/images/deity_60_by_45_mu1.jpg";
-import deity_mu2 from "src/images/deity_60_by_45_mu2.jpg";
+import deity from "src/images/deity_60x45.jpg";
+import deity_mu1 from "src/images/deity_60x45_mu1.jpg";
+import deity_mu2 from "src/images/deity_60x45_mu2.jpg";
 
-import octopus from "src/images/octopus_90_by_60_COMP.jpg";
-import octopus_mu1 from "src/images/octopus_90_by_60_mu1.jpg";
-import octopus_mu2 from "src/images/octopus_90_by_60_mu2.jpg";
-import octopus_mu3 from "src/images/ocotpus_90_by_60_mu3.jpg";
-import octopus_mu4 from "src/images/octopus_90_by_60_mu4.jpg";
-import octopus_mu5 from "src/images/octopus_90_by_60_mu5.jpg";
+import octopus from "src/images/octopus_90x60_COMP.jpg";
+import octopus_mu1 from "src/images/octopus_90x60_mu1.jpg";
+import octopus_mu2 from "src/images/octopus_90x60_mu2.jpg";
+import octopus_mu3 from "src/images/ocotpus_90x60_mu3.jpg";
+import octopus_mu4 from "src/images/octopus_90x60_mu4.jpg";
+import octopus_mu5 from "src/images/octopus_90x60_mu5.jpg";
 
-import ship from "src/images/ship_60_by_45_COMP.jpg";
-import ship_mu1 from "src/images/ship_60_by_45_mu1.jpg";
-import ship_mu2 from "src/images/ship_60_by_45_mu2.jpg";
-import ship_mu3 from "src/images/ship_60_by_45_mu3.jpg";
+import ship from "src/images/ship_60x45_COMP.jpg";
+import ship_mu1 from "src/images/ship_60x45_mu1.jpg";
+import ship_mu2 from "src/images/ship_60x45_mu2.jpg";
+import ship_mu3 from "src/images/ship_60x45_mu3.jpg";
 
-import img_rebirth_mu3 from "src/images/mind_to_infinity_80_by_60_mu1.jpg";
-import img_rebirth_mu4 from "src/images/mind_to_infinity_80_by_60_mu2.jpg";
-import img_rebirth_mu5 from "src/images/mind_to_infinity_80_by_60_mu3.jpg";
-import img_rebirth_mu6 from "src/images/mind_to_infinity_80_by_60_mu4.jpg";
+import img_rebirth_mu3 from "src/images/mind_to_infinity_80x60_mu1.jpg";
+import img_rebirth_mu4 from "src/images/mind_to_infinity_80x60_mu2.jpg";
+import img_rebirth_mu5 from "src/images/mind_to_infinity_80x60_mu3.jpg";
+import img_rebirth_mu6 from "src/images/mind_to_infinity_80x60_mu4.jpg";
 
-import pirranhas_mu1 from "src/images/pirranhas_60_by_90_mu1.jpg";
-import pirranhas_mu2 from "src/images/pirranhas_60_by_90_mu2.jpg";
-import pirranhas_mu3 from "src/images/pirranhas_60_by_90_mu3.jpg";
-import pirranhas_mu4 from "src/images/pirranhas_60_by_90_mu4.jpg";
+import pirranhas_mu1 from "src/images/pirranhas_60x90_mu1.jpg";
+import pirranhas_mu2 from "src/images/pirranhas_60x90_mu2.jpg";
+import pirranhas_mu3 from "src/images/pirranhas_60x90_mu3.jpg";
+import pirranhas_mu4 from "src/images/pirranhas_60x90_mu4.jpg";
 
-import img_warrior_mu1 from "src/images/victory_80_by_60_mu1.jpg";
-import img_warrior_mu2 from "src/images/victory_80_by_60_mu2.jpg";
-import img_warrior_mu3 from "src/images/victory_80_by_60_mu3.jpg";
+import img_warrior_mu1 from "src/images/victory_80x60_mu1.jpg";
+import img_warrior_mu2 from "src/images/victory_80x60_mu2.jpg";
+import img_warrior_mu3 from "src/images/victory_80x60_mu3.jpg";
 
-import blue_mu1 from "src/images/blue_60_by_40_mu1.jpg";
-import blue_mu2 from "src/images/blue_60_by_40_mu2.jpg";
+import blue_mu1 from "src/images/blue_60x40_mu1.jpg";
+import blue_mu2 from "src/images/blue_60x40_mu2.jpg";
 
 const { Abstract, Figurative, Portrait } = Category;
 
