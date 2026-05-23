@@ -1,25 +1,26 @@
 import React from 'react';
-// import img_rebirth from "../images/ac61.jpg";
-// import img_summer_party from "../images/ac62.jpg";
-// import img_dogs from "../images/dogs.jpg";
-// import str_parad_2 from "../images/ac29.jpg";
-// import windmill from "../images/ac53.jpg";
-// import img_cat_dinner from "../images/ac60.jpg";
-// import i7 from "../images/ac56.jpg";
-// import i8 from "../images/ac57.jpg";
-// import i9 from "../images/ac58.jpg";
-// import i10 from "../images/ac59.jpg";
-// import str_para_1 from "../images/ac33.jpg";
-// import img_at_the_bar from "../images/ac63.jpg";
+import { Helmet } from 'react-helmet-async';
+import { SITE_URL, OG_IMAGE } from 'src/seo';
 
 function ContactPage(props) {
-    document.title = "Contact | Oliver Watkins Art";
     return (
-        <div className={"container"} >
-        <p className={"text1"}>
-            Contact me by writing me an email at oliver.f.watkins@gmail.com
-            </p>
-        </div>
+        <>
+            <Helmet>
+                <title>Contact | Oliver Watkins Art</title>
+                <meta name="description" content="Contact Oliver Watkins, Munich-based abstract artist. Get in touch about commissions, purchases, or general enquiries." />
+                <meta property="og:title" content="Contact | Oliver Watkins Art" />
+                <meta property="og:description" content="Contact Oliver Watkins, Munich-based abstract artist." />
+                <meta property="og:image" content={OG_IMAGE} />
+                <meta property="og:url" content={`${SITE_URL}/contact`} />
+                <meta property="og:type" content="website" />
+                <link rel="canonical" href={`${SITE_URL}/contact`} />
+            </Helmet>
+            <div className={"container"} >
+                <p className={"text1"}>
+                    Contact me by writing me an email at oliver.f.watkins@gmail.com
+                </p>
+            </div>
+        </>
     );
 }
 

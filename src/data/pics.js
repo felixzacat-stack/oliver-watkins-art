@@ -86,8 +86,8 @@ const { Abstract, Figurative, Portrait } = Category;
 /** @type {import('src/types').Pic[]} */
 const pics = [
     {
-        slug: "abstract-untitled",
-        title: "ABSTRACT UNTITLED -",
+        slug: "abstract-untitled2",
+        title: "ABSTRACT UNTITLED 2 -",
         category: [Abstract],
         img: [img_rebirth, img_rebirth_mu1, img_rebirth_mu2, img_rebirth_mu3, img_rebirth_mu4, img_rebirth_mu5, img_rebirth_mu6],
         spec: "Acrylic on stretched canvas ",
