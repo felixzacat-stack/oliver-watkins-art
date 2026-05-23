@@ -61,6 +61,14 @@ src/
 - "COMP" means it is compressed, hence it loads fast. 
 - MU images are either "mock up" images, or snippets of details from the original artwork.
 
+### Adding a new painting
+
+1. Add image file(s) to `src/images/`
+2. Add an entry to `src/data/pics.js` — import the image and add to the array with `slug`, `title`, `category`, `img`, `spec`, `dimensions`, and optionally `price`
+3. Add a `<url>` block to `public/sitemap.xml` for `/gallery/detail/<new-slug>`
+
+Everything else (page title, meta description, OG tags, gallery grid) derives from the `pics.js` entry automatically.
+
 ### Future improvements : 
 
 Discovery / content
