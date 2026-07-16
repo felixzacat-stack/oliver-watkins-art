@@ -8,6 +8,7 @@ import CommissionPage from "src/pages/CommissionPage";
 import ErrorPage from "src/pages/ErrorPage";
 import FrontPage2 from "src/pages/FrontPage2";
 import PurchasePage from "src/pages/PurchasePage";
+import Gallery3DPage from "src/pages/Gallery3DPage";
 
 
 
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: "/gallery/figurative", element: <GalleryPage category="figurative" /> },
       { path: "/gallery/portrait", element: <GalleryPage category="portrait" /> },
       { path: "/gallery/detail/:slug", element: <PaintingDetailPage /> },
+      { path: "/3d-gallery", element: <Gallery3DPage /> },
       { path: "/commission", element: <CommissionPage /> },
       { path: "/purchase", element: <PurchasePage /> },
       { path: "/contact", element: <ContactPage /> },
