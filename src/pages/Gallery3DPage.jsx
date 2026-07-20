@@ -6,74 +6,154 @@ import * as THREE from "three";
 import pics from "src/data/pics";
 import "./Gallery3DPage.scss";
 
-// Proof of concept: four rectangular rooms arranged in a 2x2 grid (a
-// square), each adjoining its two orthogonal neighbors through a doorway —
-// four doorways total, with no diagonal connection. A handful of paintings
-// hang on the walls of each room. Navigable with tank-style keyboard
-// controls only (no mouse): forward/back moves along the direction you're
-// facing, left/right turns you in place. The camera never pitches up or
-// down, so the view always stays level — like classic Doom/Wolfenstein-
-// style movement.
+// Proof of concept: rectangular rooms tiled into a GRID_COLS x GRID_ROWS
+// grid, each adjoining every orthogonal neighbor through a doorway (no
+// diagonal connections). Paintings hang on the walls of each room, spread
+// across the whole grid. Navigable with tank-style keyboard controls only
+// (no mouse): forward/back moves along the direction you're facing,
+// left/right turns you in place. The camera never pitches up or down, so
+// the view always stays level — like classic Doom/Wolfenstein-style
+// movement.
 //
 // Three.js uses a right-handed, Y-up coordinate system: X is left/right,
 // Y is up/down, Z is forward/back (with the camera looking down -Z by
 // default). All positions and rotations below are in that space.
 //
-// Room A is centered on the origin. Rooms B, C, D are the same size, offset
-// along +Z and/or +X by one room depth/width so they tile edge-to-edge:
-// B is south of A (+Z), C is east of A (+X), D is east of B / south of C.
-// Doorway ownership always flows toward +X/+Z — a room's front or right
-// wall is the one that (optionally) carries a doorway and is rendered
-// double-sided, while its back or left wall is either solid (a dead end,
-// no neighbor there) or omitted entirely when a neighboring room already
-// owns that shared boundary. Two rooms both drawing the same boundary wall
-// would coincide and z-fight, which is why only one side ever renders it.
-// The four doorways form a cycle — A-B, C-D, A-C, B-D — with no diagonal
-// shortcut between B and D.
+// The room at grid (row 0, col 0) is centered on the origin; every other
+// room is offset along +X (by column * ROOM_WIDTH) and/or +Z (by row *
+// ROOM_DEPTH) so they tile edge-to-edge. Doorway ownership always flows
+// toward +X/+Z — a room's front or right wall is the one that (optionally)
+// carries a doorway and is rendered double-sided, while its back or left
+// wall is either solid (a dead end, no neighbor there) or omitted entirely
+// when a neighboring room already owns that shared boundary. Two rooms
+// both drawing the same boundary wall would coincide and z-fight, which is
+// why only one side ever renders it. Every adjacent room pair is connected
+// (a full grid graph, no diagonal shortcuts) — see ROOMS below.
 
-const ROOM_WIDTH = 20; // room size along X, in arbitrary "meters"
-const ROOM_DEPTH = 20; // room size along Z
-const WALL_HEIGHT = 5;
-const PAINTING_Y = 2.2; // height of painting centers off the floor
+const GRID_COLS = 2; // rooms across, along X
+const GRID_ROWS = 3; // rooms deep, along Z
+const ROOM_WIDTH = 16; // room size along X, in arbitrary "meters"
+const ROOM_DEPTH = 16; // room size along Z
+const WALL_HEIGHT = 3; // a realistic room ceiling height, in meters
+// Standard gallery/museum hanging convention centers artwork around eye
+// level, roughly 150cm off the floor — just below the camera's fixed
+// 1.7m eye height, so paintings sit naturally in view while walking past.
+const PAINTING_Y = 1.5;
 const MOVE_SPEED = 6; // units per second for forward/back movement
 const ROTATE_SPEED = 2.2; // radians per second for turning left/right
+// Caps how often a new frame is requested while moving. Without this, a
+// held movement key re-invalidates every rendered frame, so the scene
+// renders at the monitor's full refresh rate (60/120/144Hz) — capping it
+// trades visual smoothness for lower sustained CPU/GPU load while walking.
+const MAX_FPS = 30;
+const MIN_FRAME_INTERVAL_MS = 1000 / MAX_FPS;
 
 const DOORWAY_WIDTH = 2.6;
-const DOORWAY_HEIGHT = 3.2; // leaves a lintel above, short of the 5-unit ceiling
+const DOORWAY_HEIGHT = 2.4; // leaves a lintel above, short of the 3-unit ceiling
 // A noticeably darker shade for walls that carry a doorway, so they read as
 // a distinct "this is an opening" surface rather than blending into the
 // plain walls (#eae7df) or the floor (#d8d4cb).
 const DOORWAY_WALL_COLOR = "#a8a396";
-const ROOM_B_OFFSET_Z = ROOM_DEPTH; // Room B's center, one room-depth along +Z from Room A's
-const ROOM_C_OFFSET_X = ROOM_WIDTH; // Room C's center, one room-width along +X from Room A's
+
+// pics.js dimensions strings look like "(80cm by 60cm)" — <width>cm by
+// <height>cm, matching the <width>_by_<height> image filename convention.
+// Scene units are documented as "arbitrary meters" (see ROOM_WIDTH above),
+// so cm values are converted 1:1 to meters.
+const DIMENSIONS_CM_RE = /(\d+(?:\.\d+)?)\s*cm\s*by\s*(\d+(?:\.\d+)?)\s*cm/i;
+const CM_TO_SCENE_UNITS = 1 / 100;
+// Fallback on-wall height for the one painting whose dimensions field isn't
+// parseable ("(xxx)"), roughly the median real painting height so it
+// doesn't stick out among its now-correctly-sized neighbors.
+const FALLBACK_HEIGHT = 0.6;
+// How far the frame peeks out past the canvas on each side — a realistic
+// ~5cm frame width, now that paintings are sized to their real dimensions.
+const FRAME_PADDING = 0.05;
+
+function parseDimensionsMeters(dimensions) {
+  const match = DIMENSIONS_CM_RE.exec(dimensions ?? "");
+  if (!match) return null;
+  return {
+    width: Number(match[1]) * CM_TO_SCENE_UNITS,
+    height: Number(match[2]) * CM_TO_SCENE_UNITS,
+  };
+}
+
+// Splits `total` items across `weights` (one weight per bucket) so each
+// bucket's share is proportional to its weight, using the largest-remainder
+// method so the integer counts still sum to exactly `total`.
+function distributeByWeight(total, weights) {
+  const weightSum = weights.reduce((sum, w) => sum + w, 0);
+  const raw = weights.map((w) => (total * w) / weightSum);
+  const counts = raw.map(Math.floor);
+  let remainder = total - counts.reduce((sum, c) => sum + c, 0);
+  const byFractionDesc = raw
+    .map((v, i) => ({ i, frac: v - Math.floor(v) }))
+    .sort((a, b) => b.frac - a.frac);
+  for (let k = 0; k < remainder; k++) counts[byFractionDesc[k].i] += 1;
+  return counts;
+}
 
 // Walls are numbered back=0 (-Z), front=1 (+Z), left=2 (-X), right=3 (+X).
-// Each room's front and/or right wall may carry a doorway (and so can't
-// hold paintings), and a room's back/left wall is sometimes omitted
-// entirely because a neighboring room already draws that shared boundary —
-// so each room ends up with only two solid walls available for paintings.
-const ROOM_A_PAINTING_WALLS = [0, 2];
-const ROOM_B_PAINTING_WALLS = [1, 2];
-const ROOM_C_PAINTING_WALLS = [0, 3];
-const ROOM_D_PAINTING_WALLS = [1, 3];
+// Build the room grid: for each cell, a room's back/left walls only exist
+// when there's no neighbor there to own that shared boundary (row 0 / col
+// 0), and its front/right walls carry a doorway whenever a neighbor exists
+// to the south/east. A wall that exists and has no doorway is available
+// for hanging paintings — interior rooms (with doorways on both front and
+// right) can end up with only one free wall, which is expected for a
+// "connector" room sitting between two others.
+const ROOMS = [];
+for (let row = 0; row < GRID_ROWS; row++) {
+  for (let col = 0; col < GRID_COLS; col++) {
+    const hasBackWall = row === 0;
+    const hasLeftWall = col === 0;
+    const hasFrontDoorway = row < GRID_ROWS - 1;
+    const hasRightDoorway = col < GRID_COLS - 1;
+    const paintingWalls = [0, 1, 2, 3].filter(
+      (wall) =>
+        (wall === 0 && hasBackWall) ||
+        (wall === 1 && !hasFrontDoorway) ||
+        (wall === 2 && hasLeftWall) ||
+        (wall === 3 && !hasRightDoorway),
+    );
+    ROOMS.push({
+      offsetX: col * ROOM_WIDTH,
+      offsetZ: row * ROOM_DEPTH,
+      hasBackWall,
+      hasLeftWall,
+      hasFrontDoorway,
+      hasRightDoorway,
+      paintingWalls,
+    });
+  }
+}
 
-// Pick a handful of paintings per room for the POC. There are exactly 32
-// paintings in src/data/pics.js, so 8 per room uses the full set.
-const featuredA = pics.slice(0, 8);
-const featuredB = pics.slice(8, 16);
-const featuredC = pics.slice(16, 24);
-const featuredD = pics.slice(24, 32);
+// Spread every painting in pics.js across the 6 rooms, weighted by how many
+// free walls each room actually has — otherwise a 1-wall connector room
+// would get just as many paintings as a 2-wall room and end up crowded.
+const roomPaintingCounts = distributeByWeight(
+  pics.length,
+  ROOMS.map((room) => room.paintingWalls.length),
+);
+let paintingCursor = 0;
+for (let i = 0; i < ROOMS.length; i++) {
+  const count = roomPaintingCounts[i];
+  ROOMS[i].paintings = pics.slice(paintingCursor, paintingCursor + count);
+  paintingCursor += count;
+}
 
 function Painting({ pic, position, rotationY }) {
   // useTexture (from drei) loads the image via Three's TextureLoader and
   // suspends the component until it's ready — that's why <Room> is wrapped
   // in <Suspense> below.
   const texture = useTexture(pic.img[0]);
-  // Scale the picture plane to the source image's aspect ratio so paintings
-  // don't look stretched, while keeping a fixed on-wall height.
+  // Size the painting to its real-world dimensions (from pics.js) so
+  // paintings on the wall are proportionate to each other, rather than all
+  // sharing one fixed on-wall height. Falls back to an aspect-ratio-derived
+  // size only for the rare painting whose dimensions aren't parseable.
+  const real = parseDimensionsMeters(pic.dimensions);
   const aspect = texture.image ? texture.image.width / texture.image.height : 1;
-  const height = 1.8;
-  const width = height * aspect;
+  const height = real ? real.height : FALLBACK_HEIGHT;
+  const width = real ? real.width : height * aspect;
 
   return (
     // The group is positioned/rotated once per painting so the meshes inside
@@ -85,7 +165,7 @@ function Painting({ pic, position, rotationY }) {
           face lands at z = -0.03, clear of the painting plane at z = 0 —
           coplanar surfaces would z-fight and flicker as the camera moves. */}
       <mesh position={[0, 0, -0.06]}>
-        <boxGeometry args={[width + 0.15, height + 0.15, 0.06]} />
+        <boxGeometry args={[width + FRAME_PADDING, height + FRAME_PADDING, 0.06]} />
         <meshStandardMaterial color="#2b2b2b" />
       </mesh>
       {/* The painting itself: a plane textured with the artwork image. */}
@@ -274,7 +354,7 @@ function RoomLights({ offsetX, offsetZ }) {
 }
 
 function FirstPersonRig() {
-  const { camera } = useThree();
+  const { camera, invalidate } = useThree();
   // Keys are tracked in a ref (not state) so key presses don't trigger React
   // re-renders — useFrame reads the latest values directly every frame instead.
   const keys = useRef({});
@@ -287,20 +367,40 @@ function FirstPersonRig() {
   // attach the keyboard listeners exactly once and clean them up on unmount,
   // similar to how useEffect(() => {...}, []) would be used outside R3F.
   useMemo(() => {
-    const onKeyDown = (e) => (keys.current[e.code] = true);
+    // With frameloop="demand" the Canvas only renders when invalidate() is
+    // called, so a fresh keypress needs to kick off the first frame itself.
+    const onKeyDown = (e) => {
+      keys.current[e.code] = true;
+      invalidate();
+    };
     const onKeyUp = (e) => (keys.current[e.code] = false);
+    // If the window loses focus while a key is held (alt-tab, clicking into
+    // devtools, switching tabs), the browser never delivers the matching
+    // keyup — that key stays stuck "down" forever, which with
+    // frameloop="demand" means invalidate() keeps firing every frame
+    // indefinitely, even though nothing is actually being pressed. Clearing
+    // all keys on blur prevents that stuck state.
+    const onBlur = () => (keys.current = {});
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("blur", onBlur);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("blur", onBlur);
     };
-  }, []);
+  }, [invalidate]);
 
   // useFrame runs once per rendered frame (driven by requestAnimationFrame),
   // giving us `delta` (seconds since the last frame) so movement/turn speed
   // stays consistent regardless of frame rate.
-  useFrame((_, delta) => {
+  useFrame((_, rawDelta) => {
+    // With frameloop="demand" the render clock keeps ticking even while
+    // idle (no frames rendered), so the first frame after a pause can
+    // report a large delta — clamping it stops a resumed keypress from
+    // applying a whole idle gap's worth of turn/movement in one jump.
+    const delta = Math.min(rawDelta, 1 / 30);
+
     // Forward/back only comes from W/S or up/down arrows now — left/right
     // arrows are reserved for turning instead of strafing.
     const forward =
@@ -338,55 +438,64 @@ function FirstPersonRig() {
       camera.position.add(move);
     }
 
-    // Clamp the camera inside the 2x2 room grid so you can't walk through
-    // walls. Eye height is fixed since there's no fly/crouch — everything
-    // stays on the same level, per the "no looking up/down" requirement.
+    // Clamp the camera inside the GRID_COLS x GRID_ROWS room grid so you
+    // can't walk through walls. Eye height is fixed since there's no
+    // fly/crouch — everything stays on the same level, per the "no looking
+    // up/down" requirement.
     //
-    // There are two internal wall lines, one per axis: X = MID_X (between
-    // the A/B column and the C/D column) and Z = MID_Z (between the A/C row
-    // and the B/D row). Each line is solid except for two doorway gaps —
-    // one per room-pair straddling it — so crossing either line requires
-    // being aligned with whichever gap is relevant on the *other* axis.
+    // Every room's front/right wall carries a doorway into its south/east
+    // neighbor (see ROOMS above), so doorway gaps recur at every room
+    // center along the cross axis: crossing a column boundary is only
+    // possible while aligned (in Z) with some room's center, and crossing a
+    // row boundary only while aligned (in X) with some room's center.
+    // Away from a gap, the camera is clamped to the column/row band it's
+    // currently in, so it can't clip through a solid stretch of wall.
     const doorwayHalfWidth = DOORWAY_WIDTH / 2 - 0.3; // margin so you can't clip the doorway's edges
-    const xBound = ROOM_WIDTH / 2 - 0.5;
-    const zBound = ROOM_DEPTH / 2 - 0.5;
-    const xMin = -xBound;
-    const xMax = ROOM_C_OFFSET_X + xBound;
-    const zMin = -zBound;
-    const zMax = ROOM_B_OFFSET_Z + zBound;
-    const MID_X = ROOM_WIDTH / 2; // A/C's shared wall == B/D's shared wall
-    const MID_Z = ROOM_DEPTH / 2; // A/B's shared wall == C/D's shared wall
+    const MARGIN = 0.5; // keeps the camera from clipping into a solid wall
+    const xMin = -(ROOM_WIDTH / 2 - MARGIN);
+    const xMax = (GRID_COLS - 1) * ROOM_WIDTH + (ROOM_WIDTH / 2 - MARGIN);
+    const zMin = -(ROOM_DEPTH / 2 - MARGIN);
+    const zMax = (GRID_ROWS - 1) * ROOM_DEPTH + (ROOM_DEPTH / 2 - MARGIN);
 
-    // X-axis: blocked by the MID_X line except through the A/C doorway
-    // (centered at Z=0) or the B/D doorway (centered at Z=ROOM_B_OFFSET_Z).
-    const nearXDoorway =
-      Math.abs(camera.position.z - 0) <= doorwayHalfWidth ||
-      Math.abs(camera.position.z - ROOM_B_OFFSET_Z) <= doorwayHalfWidth;
+    const nearRoomCenter = (value, cellSize) =>
+      Math.abs(value - Math.round(value / cellSize) * cellSize) <= doorwayHalfWidth;
 
-    if (nearXDoorway) {
+    // X-axis: crossing a column boundary requires being near some room's Z
+    // center (a doorway on that row); otherwise stay within the current
+    // column's band.
+    if (nearRoomCenter(camera.position.z, ROOM_DEPTH)) {
       camera.position.x = Math.max(xMin, Math.min(xMax, camera.position.x));
-    } else if (camera.position.x < MID_X) {
-      camera.position.x = Math.max(xMin, Math.min(MID_X - 0.5, camera.position.x));
     } else {
-      camera.position.x = Math.max(MID_X + 0.5, Math.min(xMax, camera.position.x));
+      const col = Math.max(0, Math.min(GRID_COLS - 1, Math.round(camera.position.x / ROOM_WIDTH)));
+      const colCenter = col * ROOM_WIDTH;
+      const low = Math.max(xMin, colCenter - ROOM_WIDTH / 2 + MARGIN);
+      const high = Math.min(xMax, colCenter + ROOM_WIDTH / 2 - MARGIN);
+      camera.position.x = Math.max(low, Math.min(high, camera.position.x));
     }
 
-    // Z-axis: blocked by the MID_Z line except through the A/B doorway
-    // (centered at X=0) or the C/D doorway (centered at X=ROOM_C_OFFSET_X).
-    // Reads camera.position.x after the X clamp above has already run.
-    const nearZDoorway =
-      Math.abs(camera.position.x - 0) <= doorwayHalfWidth ||
-      Math.abs(camera.position.x - ROOM_C_OFFSET_X) <= doorwayHalfWidth;
-
-    if (nearZDoorway) {
+    // Z-axis: same idea, but the gap check uses camera.position.x after the
+    // X clamp above has already run.
+    if (nearRoomCenter(camera.position.x, ROOM_WIDTH)) {
       camera.position.z = Math.max(zMin, Math.min(zMax, camera.position.z));
-    } else if (camera.position.z < MID_Z) {
-      camera.position.z = Math.max(zMin, Math.min(MID_Z - 0.5, camera.position.z));
     } else {
-      camera.position.z = Math.max(MID_Z + 0.5, Math.min(zMax, camera.position.z));
+      const row = Math.max(0, Math.min(GRID_ROWS - 1, Math.round(camera.position.z / ROOM_DEPTH)));
+      const rowCenter = row * ROOM_DEPTH;
+      const low = Math.max(zMin, rowCenter - ROOM_DEPTH / 2 + MARGIN);
+      const high = Math.min(zMax, rowCenter + ROOM_DEPTH / 2 - MARGIN);
+      camera.position.z = Math.max(low, Math.min(high, camera.position.z));
     }
 
     camera.position.y = 1.7;
+
+    // frameloop="demand" only renders in response to invalidate() — with
+    // movement/turning applied above, keep requesting the next frame so
+    // motion stays smooth. The moment every key is released, this stops
+    // firing and rendering (and CPU usage) drops back to idle. The request
+    // is delayed (rather than invalidating immediately) to cap the rate at
+    // MAX_FPS instead of re-rendering on every monitor refresh.
+    if (forward !== 0 || strafe !== 0 || turn !== 0) {
+      setTimeout(invalidate, MIN_FRAME_INTERVAL_MS);
+    }
   });
 
   return null;
@@ -398,62 +507,34 @@ export default function Gallery3DPage() {
       <div className="gallery3d-overlay">
         <p>Arrow keys or WASD: up/down (W/S) to move, left/right to turn. A/D to strafe. No mouse needed.</p>
       </div>
-      <Canvas shadows camera={{ fov: 70, position: [0, 1.7, 6] }}>
+      <Canvas shadows frameloop="demand" camera={{ fov: 70, position: [0, 1.7, 6] }}>
         {/* Flat ambient fill so unlit sides of paintings/walls aren't pitch
             black, plus a few point lights near the ceiling of each room as
             "room lights". Three's physically-correct lighting attenuates
             point lights by distance squared (decay=2 by default), which
-            would leave the far corners of a 20x20 room almost unlit —
-            decay={0} keeps brightness constant regardless of distance. */}
+            would leave the far corners of a room almost unlit — decay={0}
+            keeps brightness constant regardless of distance. */}
         <ambientLight intensity={1.1} />
-        <RoomLights offsetX={0} offsetZ={0} />
-        <RoomLights offsetX={0} offsetZ={ROOM_B_OFFSET_Z} />
-        <RoomLights offsetX={ROOM_C_OFFSET_X} offsetZ={0} />
-        <RoomLights offsetX={ROOM_C_OFFSET_X} offsetZ={ROOM_B_OFFSET_Z} />
+        {ROOMS.map((room, i) => (
+          <RoomLights key={i} offsetX={room.offsetX} offsetZ={room.offsetZ} />
+        ))}
         {/* Suspense shows nothing (fallback={null}) while painting textures
             load, then reveals the whole scene at once rather than paintings
             popping in one by one. */}
         <Suspense fallback={null}>
-          <Room
-            offsetX={0}
-            offsetZ={0}
-            paintings={featuredA}
-            paintingWalls={ROOM_A_PAINTING_WALLS}
-            hasBackWall
-            hasFrontDoorway
-            hasLeftWall
-            hasRightDoorway
-          />
-          <Room
-            offsetX={0}
-            offsetZ={ROOM_B_OFFSET_Z}
-            paintings={featuredB}
-            paintingWalls={ROOM_B_PAINTING_WALLS}
-            hasBackWall={false}
-            hasFrontDoorway={false}
-            hasLeftWall
-            hasRightDoorway
-          />
-          <Room
-            offsetX={ROOM_C_OFFSET_X}
-            offsetZ={0}
-            paintings={featuredC}
-            paintingWalls={ROOM_C_PAINTING_WALLS}
-            hasBackWall
-            hasFrontDoorway
-            hasLeftWall={false}
-            hasRightDoorway={false}
-          />
-          <Room
-            offsetX={ROOM_C_OFFSET_X}
-            offsetZ={ROOM_B_OFFSET_Z}
-            paintings={featuredD}
-            paintingWalls={ROOM_D_PAINTING_WALLS}
-            hasBackWall={false}
-            hasFrontDoorway={false}
-            hasLeftWall={false}
-            hasRightDoorway={false}
-          />
+          {ROOMS.map((room, i) => (
+            <Room
+              key={i}
+              offsetX={room.offsetX}
+              offsetZ={room.offsetZ}
+              paintings={room.paintings}
+              paintingWalls={room.paintingWalls}
+              hasBackWall={room.hasBackWall}
+              hasFrontDoorway={room.hasFrontDoorway}
+              hasLeftWall={room.hasLeftWall}
+              hasRightDoorway={room.hasRightDoorway}
+            />
+          ))}
         </Suspense>
         <FirstPersonRig />
       </Canvas>
