@@ -48,6 +48,16 @@ const ROTATE_SPEED = 2.2; // radians per second for turning left/right
 const MAX_FPS = 30;
 const MIN_FRAME_INTERVAL_MS = 1000 / MAX_FPS;
 
+// With 4 point lights per room at decay={0} (no falloff with distance) plus
+// a flat ambient light, a wall can end up lit by several of them at once —
+// the previous values (2.2 / 1.1) pushed total irradiance to ~7-8x a normal
+// "fully lit" surface, which with no tone mapping just clips to white and
+// reads as washed-out/pale. These are turned down so the same fixture
+// layout stays under that threshold; ACESFilmicToneMapping on the Canvas
+// (see below) rolls off whatever headroom remains instead of hard-clipping.
+const POINT_LIGHT_INTENSITY = 0.9;
+const AMBIENT_LIGHT_INTENSITY = 0.4;
+
 const DOORWAY_WIDTH = 2.6;
 const DOORWAY_HEIGHT = 2.4; // leaves a lintel above, short of the 3-unit ceiling
 // A noticeably darker shade for walls that carry a doorway, so they read as
@@ -350,7 +360,7 @@ function RoomLights({ offsetX, offsetZ }) {
     [offsetX - ROOM_WIDTH / 4, WALL_HEIGHT - 0.3, offsetZ + ROOM_DEPTH / 4],
     [offsetX + ROOM_WIDTH / 4, WALL_HEIGHT - 0.3, offsetZ + ROOM_DEPTH / 4],
   ];
-  return positions.map((pos, i) => <pointLight key={i} position={pos} intensity={2.2} decay={0} />);
+  return positions.map((pos, i) => <pointLight key={i} position={pos} intensity={POINT_LIGHT_INTENSITY} decay={0} />);
 }
 
 function FirstPersonRig() {
@@ -507,14 +517,24 @@ export default function Gallery3DPage() {
       <div className="gallery3d-overlay">
         <p>Arrow keys or WASD: up/down (W/S) to move, left/right to turn. A/D to strafe. No mouse needed.</p>
       </div>
-      <Canvas shadows frameloop="demand" camera={{ fov: 70, position: [0, 1.7, 6] }}>
+      <Canvas
+        shadows
+        frameloop="demand"
+        camera={{ fov: 70, position: [0, 1.7, 6] }}
+        // ACESFilmicToneMapping rolls off bright areas smoothly instead of
+        // Three's default hard-clipping anything past 1.0 straight to white
+        // — with several point lights able to hit the same wall (see
+        // POINT_LIGHT_INTENSITY above), some highlight headroom is expected,
+        // and filmic tone mapping is what keeps that from reading as pale.
+        gl={{ toneMapping: THREE.ACESFilmicToneMapping }}
+      >
         {/* Flat ambient fill so unlit sides of paintings/walls aren't pitch
             black, plus a few point lights near the ceiling of each room as
             "room lights". Three's physically-correct lighting attenuates
             point lights by distance squared (decay=2 by default), which
             would leave the far corners of a room almost unlit — decay={0}
             keeps brightness constant regardless of distance. */}
-        <ambientLight intensity={1.1} />
+        <ambientLight intensity={AMBIENT_LIGHT_INTENSITY} />
         {ROOMS.map((room, i) => (
           <RoomLights key={i} offsetX={room.offsetX} offsetZ={room.offsetZ} />
         ))}
