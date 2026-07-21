@@ -40,6 +40,11 @@ function App() {
                                     Portrait
                                 </Link>
                             </li>
+                            <li>
+                                <Link to="/3d-gallery" className={location.pathname === '/3d-gallery' ? 'active' : ''}>
+                                    3D Gallery
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                 )}

@@ -109,7 +109,7 @@ const pics = [
         category: [Abstract],
         img: [deity, deity_mu1, deity_mu2],
         spec: "Acrylic on stretched canvas",
-        dimensions: "(60cm by 45cm)",
+        dimensions: "(45cm by 60cm)",
     },
     {
         slug: "octopus",
@@ -117,7 +117,7 @@ const pics = [
         category: [Abstract],
         img: [octopus, octopus_mu1, octopus_mu2, octopus_mu3, octopus_mu4, octopus_mu5],
         spec: "Acrylic on stretched canvas",
-        dimensions: "(90cm by 60cm)",
+        dimensions: "(60cm by 90cm)",
     },
     {
         slug: "ship",
@@ -125,7 +125,7 @@ const pics = [
         category: [Abstract],
         img: [ship, ship_mu1, ship_mu2, ship_mu3],
         spec: "Acrylic on stretched canvas",
-        dimensions: "(60cm by 45cm)",
+        dimensions: "(45cm by 60cm)",
     },
     {
         slug: "pirranhas",
@@ -133,7 +133,7 @@ const pics = [
         category: [Abstract],
         img: [pirranhas, pirranhas_mu1, pirranhas_mu2, pirranhas_mu3, pirranhas_mu4],
         spec: "Acrylic on stretched canvas",
-        dimensions: "(60cm by 90cm)",
+        dimensions: "(90cm by 60cm)",
         price: "450€ + PPH"
     },
     {
@@ -169,7 +169,7 @@ const pics = [
         category: [Figurative],
         img: [frank],
         spec: "Acrylic on stretched canvas",
-        dimensions: "(60cm by 90cm)",
+        dimensions: "(60cm by 60cm)",
         price: "450"
     },
     {
@@ -178,7 +178,7 @@ const pics = [
         category: [Abstract],
         img: [img_warrior, img_warrior_mu1, img_warrior_mu2, img_warrior_mu3],
         spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
+        dimensions: "(60cm by 80cm)",
         price: "300€ + PPH (frame included)"
     },
     {
@@ -187,7 +187,7 @@ const pics = [
         category: [Portrait],
         img: [agnes, agnes_mu1],
         spec: "Acrylic on paper ",
-        dimensions: "(60cm by 45cm)",
+        dimensions: "(45cm by 60cm)",
         price: "100€ + PPH (frame included)"
     },
     {
@@ -224,7 +224,7 @@ const pics = [
         category: [Abstract],
         img: [pink],
         spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
+        dimensions: "(60cm by 80cm)",
         price: "150€ + PH",
         sold: true
     },
@@ -234,7 +234,7 @@ const pics = [
         category: [Abstract],
         img: [cat_dinner],
         spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
+        dimensions: "(60cm by 80cm)",
         price: "100€ + PPH"
     },
     {
@@ -243,7 +243,7 @@ const pics = [
         category: [Figurative],
         img: [dogs, dogs_mu1],
         spec: "Acrylic on canvas board ",
-        dimensions: "(60cm by 45cm)",
+        dimensions: "(45cm by 60cm)",
         sold: true
     },
     {
@@ -252,7 +252,7 @@ const pics = [
         category: [Portrait],
         img: [figure],
         spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
+        dimensions: "(60cm by 80cm)",
         price: "50€ + PPH",
         sold: true
     },
@@ -271,7 +271,7 @@ const pics = [
         category: [Abstract],
         img: [blue, blue_mu1, blue_mu2],
         spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
+        dimensions: "(60cm by 80cm)",
         price: "150€ + PH",
     },
     {
@@ -280,7 +280,7 @@ const pics = [
         category: [Figurative],
         img: [lady2],
         spec: "Acrylic on paper ",
-        dimensions: "(80cm by 60cm)",
+        dimensions: "(60cm by 80cm)",
         price: "30€ + PH",
     },
     {
@@ -298,7 +298,7 @@ const pics = [
         category: [Abstract],
         img: [squid],
         spec: "Acrylic on stretched canvas ",
-        dimensions: "(50cm by 60cm)",
+        dimensions: "(60cm by 50cm)",
         price: "50€ + PH",
     },
     {
@@ -333,7 +333,7 @@ const pics = [
         category: [Figurative],
         img: [paradise2],
         spec: "Acrylic on paper ",
-        dimensions: "(80cm by 60cm)"
+        dimensions: "(60cm by 60cm)"
     },
     {
         slug: "paradise-3",
@@ -366,7 +366,7 @@ const pics = [
         category: [Abstract],
         img: [orange],
         spec: "Acrylic on stretched canvas ",
-        dimensions: "(80cm by 60cm)",
+        dimensions: "(60cm by 80cm)",
         price: "150€ + PH",
     },
 
