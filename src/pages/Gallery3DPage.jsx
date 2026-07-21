@@ -34,11 +34,10 @@ const GRID_COLS = 2; // rooms across, along X
 const GRID_ROWS = 3; // rooms deep, along Z
 const ROOM_WIDTH = 16; // room size along X, in arbitrary "meters"
 const ROOM_DEPTH = 16; // room size along Z
-const WALL_HEIGHT = 3; // a realistic room ceiling height, in meters
-// Standard gallery/museum hanging convention centers artwork around eye
-// level, roughly 150cm off the floor — just below the camera's fixed
-// 1.7m eye height, so paintings sit naturally in view while walking past.
-const PAINTING_Y = 1.5;
+const WALL_HEIGHT = 2.5; // a realistic room ceiling height, in meters
+// Centered floor-to-ceiling on the wall, rather than at a fixed eye-level
+// height, so paintings stay vertically centered whatever WALL_HEIGHT is set to.
+const PAINTING_Y = WALL_HEIGHT / 2;
 const MOVE_SPEED = 6; // units per second for forward/back movement
 const ROTATE_SPEED = 2.2; // radians per second for turning left/right
 // Caps how often a new frame is requested while moving. Without this, a
@@ -48,18 +47,18 @@ const ROTATE_SPEED = 2.2; // radians per second for turning left/right
 const MAX_FPS = 30;
 const MIN_FRAME_INTERVAL_MS = 1000 / MAX_FPS;
 
-// With 4 point lights per room at decay={0} (no falloff with distance) plus
-// a flat ambient light, a wall can end up lit by several of them at once —
-// the previous values (2.2 / 1.1) pushed total irradiance to ~7-8x a normal
-// "fully lit" surface, which with no tone mapping just clips to white and
-// reads as washed-out/pale. These are turned down so the same fixture
-// layout stays under that threshold; ACESFilmicToneMapping on the Canvas
-// (see below) rolls off whatever headroom remains instead of hard-clipping.
-const POINT_LIGHT_INTENSITY = 0.9;
+// A single point light per room (rather than the previous four) since
+// Three's standard material shades every fragment against every light in
+// the scene — with 6 rooms, four lights each meant 24 lights factored into
+// every lit pixel's shader, which was the main cost behind the sluggish
+// frame rate. Intensity is scaled up to roughly cover for the three removed
+// lights (still comfortably under the range ACESFilmicToneMapping can roll
+// off without clipping to white — see below).
+const POINT_LIGHT_INTENSITY = 2.8;
 const AMBIENT_LIGHT_INTENSITY = 0.4;
 
 const DOORWAY_WIDTH = 2.6;
-const DOORWAY_HEIGHT = 2.4; // leaves a lintel above, short of the 3-unit ceiling
+const DOORWAY_HEIGHT = 2.4; // leaves a lintel above, short of the WALL_HEIGHT ceiling
 // A noticeably darker shade for walls that carry a doorway, so they read as
 // a distinct "this is an opening" surface rather than blending into the
 // plain walls (#eae7df) or the floor (#d8d4cb).
@@ -137,17 +136,38 @@ for (let row = 0; row < GRID_ROWS; row++) {
   }
 }
 
-// Spread every painting in pics.js across the 6 rooms, weighted by how many
-// free walls each room actually has — otherwise a 1-wall connector room
-// would get just as many paintings as a 2-wall room and end up crowded.
+// Left out of the 3D gallery specifically (they still appear in the regular
+// gallery page) — pics.js is unaffected.
+const EXCLUDED_SLUGS = new Set(["awaken-the-monster", "squid", "the-literary-boor", "orange"]);
+const GALLERY_PICS = pics.filter((pic) => !EXCLUDED_SLUGS.has(pic.slug));
+
+// The "Stranger than paradise" series reads as one triptych, so it's kept
+// together on a single wall (see Room below) instead of being round-robined
+// across separate walls like every other painting.
+const PARADISE_SLUGS = new Set(["paradise-1", "paradise-2", "paradise-3"]);
+// Gap between the centers of series paintings hung side by side on the same
+// wall — wide enough to clear a frame (paintings in this series are ~0.6m
+// wide) with a little breathing room either side.
+const SERIES_ITEM_GAP = 0.9;
+// A wall's local offset axis (x for back/front, z for left/right) doesn't
+// consistently line up with "screen-right" for a viewer facing that wall —
+// walls facing +Z or -X (front, left) read backwards, since their rotation
+// mirrors the offset axis relative to the viewer. Indexed by wall (back=0,
+// front=1, left=2, right=3), this flips the spread direction on those walls
+// so a group's paintings always read in array order left-to-right.
+const WALL_READING_SIGN = [1, -1, -1, 1];
+
+// Spread every painting across the 6 rooms, weighted by how many free walls
+// each room actually has — otherwise a 1-wall connector room would get just
+// as many paintings as a 2-wall room and end up crowded.
 const roomPaintingCounts = distributeByWeight(
-  pics.length,
+  GALLERY_PICS.length,
   ROOMS.map((room) => room.paintingWalls.length),
 );
 let paintingCursor = 0;
 for (let i = 0; i < ROOMS.length; i++) {
   const count = roomPaintingCounts[i];
-  ROOMS[i].paintings = pics.slice(paintingCursor, paintingCursor + count);
+  ROOMS[i].paintings = GALLERY_PICS.slice(paintingCursor, paintingCursor + count);
   paintingCursor += count;
 }
 
@@ -186,9 +206,9 @@ function Painting({ pic, position, rotationY }) {
       {/* Html renders a normal DOM element positioned in 3D space each frame.
           distanceFactor scales it down with distance (like real-world size);
           occlude hides it when a mesh is in front of it. */}
-      <Html position={[0, -height / 2 - 0.25, 0]} center distanceFactor={8} occlude>
+      {/* <Html position={[0, -height / 2 - 0.25, 0]} center distanceFactor={8} occlude>
         <div className="gallery3d-label">{pic.title}</div>
-      </Html>
+      </Html> */}
     </group>
   );
 }
@@ -252,33 +272,53 @@ function Room({
 }) {
   // Distribute paintings evenly around the room's available walls (the ones
   // listed in paintingWalls — a wall with a doorway, or no wall at all,
-  // can't hold paintings). Paintings are handed out round-robin, and each
-  // wall's paintings are spaced out evenly along its length using the
-  // "slot index on that wall" (t).
+  // can't hold paintings). Paintings are handed out round-robin by group —
+  // ordinarily each group is just one painting, except the "Stranger than
+  // paradise" series, which is bundled into a single group so all of it
+  // lands on the same wall — and each wall's groups are spaced out evenly
+  // along its length using the "slot index on that wall" (t).
   const wallPositions = useMemo(() => {
-    const positions = [];
-    const n = paintings.length;
-    const wallCount = paintingWalls.length;
-    for (let i = 0; i < n; i++) {
-      const wall = paintingWalls[i % wallCount];
-      const t = Math.floor(i / wallCount) + 1; // this painting's slot index on that wall (1-based)
-      // +1 in the denominator leaves a gap at both ends of the wall instead
-      // of butting paintings right up against the corners.
-      const spacing = ROOM_WIDTH / (Math.ceil(n / wallCount) + 1);
-      const offset = -ROOM_WIDTH / 2 + spacing * t;
-
-      // Each wall's painting is nudged 0.05 units in front of the wall
-      // surface (to avoid z-fighting) and rotated to face into the room.
-      if (wall === 0) {
-        positions.push({ pos: [offsetX + offset, PAINTING_Y, offsetZ - ROOM_DEPTH / 2 + 0.05], rot: 0 });
-      } else if (wall === 1) {
-        positions.push({ pos: [offsetX + offset, PAINTING_Y, offsetZ + ROOM_DEPTH / 2 - 0.05], rot: Math.PI });
-      } else if (wall === 2) {
-        positions.push({ pos: [offsetX - ROOM_WIDTH / 2 + 0.05, PAINTING_Y, offsetZ + offset], rot: Math.PI / 2 });
+    const groups = [];
+    for (const pic of paintings) {
+      const isParadise = PARADISE_SLUGS.has(pic.slug);
+      const prevGroup = groups[groups.length - 1];
+      if (isParadise && prevGroup?.isParadise) {
+        prevGroup.pics.push(pic);
       } else {
-        positions.push({ pos: [offsetX + ROOM_WIDTH / 2 - 0.05, PAINTING_Y, offsetZ + offset], rot: -Math.PI / 2 });
+        groups.push({ isParadise, pics: [pic] });
       }
     }
+
+    const positions = [];
+    const wallCount = paintingWalls.length;
+    groups.forEach((group, gi) => {
+      const wall = paintingWalls[gi % wallCount];
+      const t = Math.floor(gi / wallCount) + 1; // this group's slot index on that wall (1-based)
+      // +1 in the denominator leaves a gap at both ends of the wall instead
+      // of butting paintings right up against the corners.
+      const spacing = ROOM_WIDTH / (Math.ceil(groups.length / wallCount) + 1);
+      const baseOffset = -ROOM_WIDTH / 2 + spacing * t;
+
+      group.pics.forEach((pic, k) => {
+        // A multi-painting group (the paradise series) is spread evenly
+        // around its slot instead of all painting centers landing on top of
+        // each other; a single-painting group collapses this to baseOffset.
+        const offset =
+          baseOffset + WALL_READING_SIGN[wall] * (k - (group.pics.length - 1) / 2) * SERIES_ITEM_GAP;
+
+        // Each wall's painting is nudged 0.05 units in front of the wall
+        // surface (to avoid z-fighting) and rotated to face into the room.
+        if (wall === 0) {
+          positions.push({ pos: [offsetX + offset, PAINTING_Y, offsetZ - ROOM_DEPTH / 2 + 0.05], rot: 0 });
+        } else if (wall === 1) {
+          positions.push({ pos: [offsetX + offset, PAINTING_Y, offsetZ + ROOM_DEPTH / 2 - 0.05], rot: Math.PI });
+        } else if (wall === 2) {
+          positions.push({ pos: [offsetX - ROOM_WIDTH / 2 + 0.05, PAINTING_Y, offsetZ + offset], rot: Math.PI / 2 });
+        } else {
+          positions.push({ pos: [offsetX + ROOM_WIDTH / 2 - 0.05, PAINTING_Y, offsetZ + offset], rot: -Math.PI / 2 });
+        }
+      });
+    });
     return positions;
   }, [offsetX, offsetZ, paintings, paintingWalls]);
 
@@ -351,16 +391,12 @@ function Room({
   );
 }
 
-// Four point lights spread over a room (rather than one central light)
-// avoid a single hot spot in the middle — see the decay note below.
+// One centered, near-ceiling point light per room. decay={0} means it
+// doesn't fall off with distance, so a single central fixture still reaches
+// every corner — position mostly matters for the angle of incidence on
+// walls, not for its reach.
 function RoomLights({ offsetX, offsetZ }) {
-  const positions = [
-    [offsetX - ROOM_WIDTH / 4, WALL_HEIGHT - 0.3, offsetZ - ROOM_DEPTH / 4],
-    [offsetX + ROOM_WIDTH / 4, WALL_HEIGHT - 0.3, offsetZ - ROOM_DEPTH / 4],
-    [offsetX - ROOM_WIDTH / 4, WALL_HEIGHT - 0.3, offsetZ + ROOM_DEPTH / 4],
-    [offsetX + ROOM_WIDTH / 4, WALL_HEIGHT - 0.3, offsetZ + ROOM_DEPTH / 4],
-  ];
-  return positions.map((pos, i) => <pointLight key={i} position={pos} intensity={POINT_LIGHT_INTENSITY} decay={0} />);
+  return <pointLight position={[offsetX, WALL_HEIGHT - 0.3, offsetZ]} intensity={POINT_LIGHT_INTENSITY} decay={0} />;
 }
 
 function FirstPersonRig() {
@@ -514,9 +550,9 @@ function FirstPersonRig() {
 export default function Gallery3DPage() {
   return (
     <div className="gallery3d-page">
-      <div className="gallery3d-overlay">
+      {/* <div className="gallery3d-overlay">
         <p>Arrow keys or WASD: up/down (W/S) to move, left/right to turn. A/D to strafe. No mouse needed.</p>
-      </div>
+      </div> */}
       <Canvas
         shadows
         frameloop="demand"
