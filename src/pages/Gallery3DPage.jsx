@@ -9,9 +9,13 @@ import "./Gallery3DPage.scss";
 // Proof of concept: rectangular rooms tiled into a GRID_COLS x GRID_ROWS
 // grid, each adjoining every orthogonal neighbor through a doorway (no
 // diagonal connections). Paintings hang on the walls of each room, spread
-// across the whole grid. Navigable with tank-style keyboard controls only
-// (no mouse): forward/back moves along the direction you're facing,
-// left/right turns you in place. The camera never pitches up or down, so
+// across the whole grid. Navigable with tank-style keyboard controls:
+// forward/back moves along the direction you're facing, left/right turns
+// you in place. The mouse complements this rather than replacing it: the
+// wheel drives the same forward/back axis as W/S and the up/down arrows,
+// and moving the cursor toward the left or right edge of the window turns
+// the view that way (continuing for as long as it stays off-center), same
+// axis as the left/right arrows. The camera never pitches up or down, so
 // the view always stays level — like classic Doom/Wolfenstein-style
 // movement.
 //
@@ -40,6 +44,19 @@ const WALL_HEIGHT = 2.5; // a realistic room ceiling height, in meters
 const PAINTING_Y = WALL_HEIGHT / 2;
 const MOVE_SPEED = 6; // units per second for forward/back movement
 const ROTATE_SPEED = 2.2; // radians per second for turning left/right
+// Scene units moved per unit of wheel deltaY. A single notch reportedly
+// still moved ~2 units (a couple of meters) at the prior value, well above
+// what deltaY~100 would suggest — some mice/OS scroll settings report a
+// much larger deltaY per physical click than the ~100 baseline, and rapid
+// notches can also fire faster than they're rendered, compounding into one
+// visibly bigger jump. Dropped further so a single click reads as a small
+// nudge rather than a stride.
+const WHEEL_MOVE_SENSITIVITY = 0.00004;
+// How close to the screen's horizontal center the cursor has to be before
+// it's treated as dead-center (no turning) — as a fraction of half the
+// window width. Without this, any tiny cursor drift off exact-center would
+// register as a turn input and slowly spin the view.
+const MOUSE_TURN_DEADZONE = 0.08;
 // Caps how often a new frame is requested while moving. Without this, a
 // held movement key re-invalidates every rendered frame, so the scene
 // renders at the monitor's full refresh rate (60/120/144Hz) — capping it
@@ -408,6 +425,14 @@ function FirstPersonRig() {
   // in a ref rather than derived from camera.rotation.y each frame so it
   // accumulates smoothly regardless of anything else touching the camera.
   const yaw = useRef(0);
+  // How far the cursor sits from the horizontal center of the window, as a
+  // signed fraction from -1 (left edge) to 1 (right edge), beyond the dead
+  // zone. Read every frame in useFrame as a continuous turn input — the
+  // cursor's position (not its raw movement) drives turning, like steering
+  // toward whichever side of the screen the mouse sits on, so turning
+  // continues for as long as the mouse stays off-center without requiring
+  // it to keep moving or the page to capture the pointer.
+  const mouseTurn = useRef(0);
 
   // useMemo here isn't caching a value — it's a one-time-on-mount trick to
   // attach the keyboard listeners exactly once and clean them up on unmount,
@@ -426,16 +451,64 @@ function FirstPersonRig() {
     // frameloop="demand" means invalidate() keeps firing every frame
     // indefinitely, even though nothing is actually being pressed. Clearing
     // all keys on blur prevents that stuck state.
-    const onBlur = () => (keys.current = {});
+    const onBlur = () => {
+      keys.current = {};
+      mouseTurn.current = 0;
+    };
+    // Maps cursor X position to a signed turn input: 0 within the dead zone
+    // around center, ramping up to ±1 at the window's left/right edges.
+    const onMouseMove = (e) => {
+      const centerX = window.innerWidth / 2;
+      const offset = Math.max(-1, Math.min(1, (e.clientX - centerX) / centerX));
+      const magnitude = Math.abs(offset);
+      // Negated: positive yaw (see useFrame below) turns the view left, but
+      // a positive offset means the cursor is to the right, which should
+      // turn the view right.
+      mouseTurn.current =
+        magnitude < MOUSE_TURN_DEADZONE
+          ? 0
+          : -Math.sign(offset) * ((magnitude - MOUSE_TURN_DEADZONE) / (1 - MOUSE_TURN_DEADZONE));
+      invalidate();
+    };
+    // The cursor leaving the window entirely (relatedTarget null on the
+    // outgoing mouseout) should stop turning, same as losing focus — without
+    // this, moving the mouse off-screen while off-center would leave it
+    // turning indefinitely since no further mousemove events would arrive.
+    const onMouseOut = (e) => {
+      if (!e.relatedTarget) mouseTurn.current = 0;
+    };
+    // Wheel input moves the camera directly (rather than feeding into the
+    // held-key forward/back state read in useFrame below) since a wheel
+    // event is a one-off delta, not a press-and-hold signal like a key.
+    // Applying it here and calling invalidate() still lets the clamp logic
+    // in useFrame run against the new position on the very next rendered
+    // frame, so wheel movement can't clip through walls any more than
+    // keyboard movement can.
+    const onWheel = (e) => {
+      e.preventDefault();
+      // Scrolling up/forward (negative deltaY) moves ahead; scrolling
+      // down/back (positive deltaY) moves behind — matching the up/down
+      // arrow keys' forward/back sense.
+      const distance = -e.deltaY * WHEEL_MOVE_SENSITIVITY;
+      const dir = new THREE.Vector3(-Math.sin(yaw.current), 0, -Math.cos(yaw.current));
+      camera.position.addScaledVector(dir, distance);
+      invalidate();
+    };
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
     window.addEventListener("blur", onBlur);
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseout", onMouseOut);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
       window.removeEventListener("blur", onBlur);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseout", onMouseOut);
     };
-  }, [invalidate]);
+  }, [camera, invalidate]);
 
   // useFrame runs once per rendered frame (driven by requestAnimationFrame),
   // giving us `delta` (seconds since the last frame) so movement/turn speed
@@ -456,8 +529,12 @@ function FirstPersonRig() {
     // keys' turn-in-place behavior.
     const strafe = Number(!!keys.current["KeyD"]) - Number(!!keys.current["KeyA"]);
     // Left/right arrows rotate the view instead of moving sideways — tank
-    // controls rather than a mouse-look FPS scheme.
-    const turn = Number(!!keys.current["ArrowLeft"]) - Number(!!keys.current["ArrowRight"]);
+    // controls rather than a mouse-look FPS scheme. The mouse's position-
+    // based turn input (see mouseTurn above) is combined in on the same
+    // axis, clamped to ±1 so holding an arrow key while the cursor is also
+    // off-center doesn't turn faster than either input alone.
+    const keyboardTurn = Number(!!keys.current["ArrowLeft"]) - Number(!!keys.current["ArrowRight"]);
+    const turn = Math.max(-1, Math.min(1, keyboardTurn + mouseTurn.current));
 
     yaw.current += turn * ROTATE_SPEED * delta;
     // Setting all three Euler components each frame (rather than just .y)
