@@ -8,6 +8,10 @@
   z-index: 1000; // sit above the site header/nav
   width: 100vw;
   height: 100vh;
+  // Defense-in-depth against pull-to-refresh/rubber-banding chaining to the
+  // underlying document while touch-dragging — the page never needs to
+  // scroll, so this is safe as a blanket rule.
+  overscroll-behavior: none;
 
   canvas {
     // react-three-fiber's <Canvas> renders a <canvas> that otherwise
@@ -16,6 +20,10 @@
     display: block;
     width: 100%;
     height: 100%;
+    // Suppresses the browser's own pan/pinch-zoom/double-tap-zoom gesture
+    // recognition on the canvas, so touch-drag movement (see
+    // FirstPersonRig) isn't fought by native scroll/zoom handling.
+    touch-action: none;
   }
 }
 

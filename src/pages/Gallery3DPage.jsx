@@ -57,6 +57,13 @@ const WHEEL_MOVE_SENSITIVITY = 0.00004;
 // window width. Without this, any tiny cursor drift off exact-center would
 // register as a turn input and slowly spin the view.
 const MOUSE_TURN_DEADZONE = 0.08;
+// Touch-drag equivalent of MOUSE_TURN_DEADZONE/edge-turning: below this many
+// CSS px of drag distance (per axis, from the touch-start point), input is
+// treated as zero; at TOUCH_DRAG_MAX_PX or beyond it reaches full magnitude.
+// Touch coordinates are already reported in device-independent CSS px, so
+// these are consistent across phones/tablets without extra DPI scaling.
+const TOUCH_DRAG_DEADZONE_PX = 12;
+const TOUCH_DRAG_MAX_PX = 80;
 // Caps how often a new frame is requested while moving. Without this, a
 // held movement key re-invalidates every rendered frame, so the scene
 // renders at the monitor's full refresh rate (60/120/144Hz) — capping it
@@ -417,7 +424,7 @@ function RoomLights({ offsetX, offsetZ }) {
 }
 
 function FirstPersonRig() {
-  const { camera, invalidate } = useThree();
+  const { camera, invalidate, gl } = useThree();
   // Keys are tracked in a ref (not state) so key presses don't trigger React
   // re-renders — useFrame reads the latest values directly every frame instead.
   const keys = useRef({});
@@ -433,6 +440,16 @@ function FirstPersonRig() {
   // continues for as long as the mouse stays off-center without requiring
   // it to keep moving or the page to capture the pointer.
   const mouseTurn = useRef(0);
+  // Tracks the single finger currently driving touch movement: null when no
+  // touch is active, otherwise { id, startX, startY } — the touch
+  // identifier (so a second finger touching down can't hijack the drag) and
+  // the point it started at (so drag distance is measured from there).
+  const activeTouch = useRef(null);
+  // Continuous -1..1 inputs from touch drag distance, analogous to the
+  // keyboard's forward axis and to mouseTurn respectively — see
+  // onTouchMove below.
+  const touchForward = useRef(0);
+  const touchTurn = useRef(0);
 
   // useMemo here isn't caching a value — it's a one-time-on-mount trick to
   // attach the keyboard listeners exactly once and clean them up on unmount,
@@ -454,6 +471,9 @@ function FirstPersonRig() {
     const onBlur = () => {
       keys.current = {};
       mouseTurn.current = 0;
+      activeTouch.current = null;
+      touchForward.current = 0;
+      touchTurn.current = 0;
     };
     // Maps cursor X position to a signed turn input: 0 within the dead zone
     // around center, ramping up to ±1 at the window's left/right edges.
@@ -494,12 +514,55 @@ function FirstPersonRig() {
       camera.position.addScaledVector(dir, distance);
       invalidate();
     };
+    // Converts a drag distance in px to a signed -1..1 input: 0 within the
+    // dead zone near the touch-start point, ramping up to ±1 at
+    // TOUCH_DRAG_MAX_PX — the touch equivalent of the mouse dead-zone above.
+    const normalizeDrag = (offsetPx) => {
+      const magnitude = Math.abs(offsetPx);
+      if (magnitude < TOUCH_DRAG_DEADZONE_PX) return 0;
+      const eased = (magnitude - TOUCH_DRAG_DEADZONE_PX) / (TOUCH_DRAG_MAX_PX - TOUCH_DRAG_DEADZONE_PX);
+      return Math.sign(offsetPx) * Math.min(1, eased);
+    };
+    // First-finger-wins: only starts tracking if no touch is already active,
+    // so a second finger touching down mid-drag can't hijack or corrupt it.
+    const onTouchStart = (e) => {
+      if (activeTouch.current !== null) return;
+      const touch = e.changedTouches[0];
+      activeTouch.current = { id: touch.identifier, startX: touch.clientX, startY: touch.clientY };
+      e.preventDefault();
+    };
+    // Drag up moves forward (like W/ArrowUp); drag left/right turns (like
+    // the left/right arrows) — both continuous, proportional to drag
+    // distance, mirroring how mouseTurn works for cursor position.
+    const onTouchMove = (e) => {
+      const touch = Array.from(e.changedTouches).find((t) => t.identifier === activeTouch.current?.id);
+      if (!touch) return;
+      e.preventDefault();
+      const dx = touch.clientX - activeTouch.current.startX;
+      const dy = touch.clientY - activeTouch.current.startY;
+      touchForward.current = normalizeDrag(-dy);
+      // Negated to match mouseTurn's sign convention (dragging/cursor right
+      // turns the view right).
+      touchTurn.current = -normalizeDrag(dx);
+      invalidate();
+    };
+    const onTouchEnd = (e) => {
+      const touch = Array.from(e.changedTouches).find((t) => t.identifier === activeTouch.current?.id);
+      if (!touch) return;
+      activeTouch.current = null;
+      touchForward.current = 0;
+      touchTurn.current = 0;
+    };
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
     window.addEventListener("blur", onBlur);
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseout", onMouseOut);
+    gl.domElement.addEventListener("touchstart", onTouchStart, { passive: false });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd, { passive: false });
+    window.addEventListener("touchcancel", onTouchEnd, { passive: false });
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
@@ -507,8 +570,12 @@ function FirstPersonRig() {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseout", onMouseOut);
+      gl.domElement.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchEnd);
     };
-  }, [camera, invalidate]);
+  }, [camera, invalidate, gl]);
 
   // useFrame runs once per rendered frame (driven by requestAnimationFrame),
   // giving us `delta` (seconds since the last frame) so movement/turn speed
@@ -521,20 +588,24 @@ function FirstPersonRig() {
     const delta = Math.min(rawDelta, 1 / 30);
 
     // Forward/back only comes from W/S or up/down arrows now — left/right
-    // arrows are reserved for turning instead of strafing.
-    const forward =
+    // arrows are reserved for turning instead of strafing. Touch drag
+    // (touchForward, continuous -1..1) is combined in on the same axis,
+    // clamped to ±1 like the turn axis below.
+    const keyboardForward =
       Number(!!keys.current["KeyW"] || !!keys.current["ArrowUp"]) -
       Number(!!keys.current["KeyS"] || !!keys.current["ArrowDown"]);
+    const forward = Math.max(-1, Math.min(1, keyboardForward + touchForward.current));
     // A/D still strafe sideways without turning, complementing the arrow
-    // keys' turn-in-place behavior.
+    // keys' turn-in-place behavior. No touch equivalent — touch drag only
+    // drives forward/back and turn, per the left/right-arrow analogy.
     const strafe = Number(!!keys.current["KeyD"]) - Number(!!keys.current["KeyA"]);
     // Left/right arrows rotate the view instead of moving sideways — tank
     // controls rather than a mouse-look FPS scheme. The mouse's position-
-    // based turn input (see mouseTurn above) is combined in on the same
-    // axis, clamped to ±1 so holding an arrow key while the cursor is also
-    // off-center doesn't turn faster than either input alone.
+    // based turn input (see mouseTurn above) and touch drag's horizontal
+    // component (touchTurn) are combined in on the same axis, clamped to ±1
+    // so combining inputs doesn't turn faster than any one alone.
     const keyboardTurn = Number(!!keys.current["ArrowLeft"]) - Number(!!keys.current["ArrowRight"]);
-    const turn = Math.max(-1, Math.min(1, keyboardTurn + mouseTurn.current));
+    const turn = Math.max(-1, Math.min(1, keyboardTurn + mouseTurn.current + touchTurn.current));
 
     yaw.current += turn * ROTATE_SPEED * delta;
     // Setting all three Euler components each frame (rather than just .y)
@@ -551,13 +622,15 @@ function FirstPersonRig() {
     const right = new THREE.Vector3().crossVectors(dir, camera.up).normalize();
 
     if (forward !== 0 || strafe !== 0) {
-      const move = new THREE.Vector3()
-        .addScaledVector(dir, forward)
-        .addScaledVector(right, strafe)
-        // Normalize before scaling so diagonal movement (forward + strafe)
-        // isn't faster than moving in a single direction.
-        .normalize()
-        .multiplyScalar(MOVE_SPEED * delta);
+      const raw = new THREE.Vector3().addScaledVector(dir, forward).addScaledVector(right, strafe);
+      // Normalizing then scaling by this capped magnitude (rather than just
+      // normalizing) keeps diagonal movement (forward + strafe) no faster
+      // than a single direction, while still preserving fractional
+      // magnitude for continuous touch-drag input — keyboard input is
+      // always exactly -1/0/1 per axis, so raw.length() there is always >=
+      // 1 and this reduces to the old normalize-only behavior.
+      const magnitude = Math.min(1, raw.length());
+      const move = raw.normalize().multiplyScalar(magnitude * MOVE_SPEED * delta);
       camera.position.add(move);
     }
 
