@@ -42,7 +42,7 @@ const WALL_HEIGHT = 2.5; // a realistic room ceiling height, in meters
 // Centered floor-to-ceiling on the wall, rather than at a fixed eye-level
 // height, so paintings stay vertically centered whatever WALL_HEIGHT is set to.
 const PAINTING_Y = WALL_HEIGHT / 2;
-const MOVE_SPEED = 6; // units per second for forward/back movement
+const MOVE_SPEED = 10; // units per second for forward/back movement
 const ROTATE_SPEED = 2.2; // radians per second for turning left/right
 // Scene units moved per unit of wheel deltaY. A single notch reportedly
 // still moved ~2 units (a couple of meters) at the prior value, well above
@@ -541,9 +541,10 @@ function FirstPersonRig() {
       const dx = touch.clientX - activeTouch.current.startX;
       const dy = touch.clientY - activeTouch.current.startY;
       touchForward.current = normalizeDrag(-dy);
-      // Negated to match mouseTurn's sign convention (dragging/cursor right
-      // turns the view right).
-      touchTurn.current = -normalizeDrag(dx);
+      // Matches mouseTurn's sign convention (dragging right turns the view
+      // left, same as the cursor sitting right of center) — un-negated here
+      // since the negated version had left/right backwards for touch drag.
+      touchTurn.current = normalizeDrag(dx);
       invalidate();
     };
     const onTouchEnd = (e) => {
