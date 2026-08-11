@@ -81,10 +81,20 @@ import img_warrior_mu3 from "src/images/victory_80x60_mu3.jpg";
 import blue_mu1 from "src/images/blue_60x40_mu1.jpg";
 import blue_mu2 from "src/images/blue_60x40_mu2.jpg";
 
+import event_horizon from "src/images/event_horizon_60x90_COMP.jpg";
+
 const { Abstract, Figurative, Portrait } = Category;
 
 /** @type {import('src/types').Pic[]} */
 const pics = [
+    {
+        slug: "event-horizon",
+        title: "Event Horizon",
+        category: [Abstract],
+        img: [event_horizon],
+        spec: "Acrylic on stretched canvas",
+        dimensions: "(60cm by 90cm)",
+    },
     {
         slug: "abstract-untitled2",
         title: "ABSTRACT UNTITLED 2",
