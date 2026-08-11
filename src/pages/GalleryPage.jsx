@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import Masonry from "react-responsive-masonry";
 import { Helmet } from "react-helmet-async";
@@ -14,6 +14,30 @@ const DESCRIPTIONS = {
     portrait: "Portrait paintings by Munich-based artist Oliver Watkins. Acrylic works on canvas and paper.",
 };
 
+// react-responsive-masonry's own <ResponsiveMasonry> wrapper has a known
+// rendering bug (hooks rewrite in v2.1.1+, see upstream issue #32), so we
+// compute the column count ourselves and pass it straight to <Masonry>.
+const COLUMN_BREAKPOINTS = [[1100, 3], [700, 2], [0, 1]]; // [minWidth, columns], widest first
+
+function getColumnsCount() {
+    if (typeof window === "undefined") return 3;
+    const width = window.innerWidth;
+    const match = COLUMN_BREAKPOINTS.find(([minWidth]) => width >= minWidth);
+    return match ? match[1] : 1;
+}
+
+function useColumnsCount() {
+    const [columnsCount, setColumnsCount] = useState(getColumnsCount);
+
+    useEffect(() => {
+        const handleResize = () => setColumnsCount(getColumnsCount());
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return columnsCount;
+}
+
 export default function GalleryPage({ category = "all" }) {
 
     const label = category === "all" ? "Gallery" : category.charAt(0).toUpperCase() + category.slice(1);
@@ -23,6 +47,8 @@ export default function GalleryPage({ category = "all" }) {
     const filteredPics = category === "all"
         ? pics
         : pics.filter(p => p.category.includes(category));
+
+    const columnsCount = useColumnsCount();
 
     return (
         <>
@@ -37,7 +63,7 @@ export default function GalleryPage({ category = "all" }) {
             <link rel="canonical" href={canonicalUrl} />
         </Helmet>
         <div className={"gallery-container container"}>
-            <Masonry>
+            <Masonry columnsCount={columnsCount} gutter="16px">
                 {filteredPics && filteredPics.map(el =>
                     <div className="gallery-grid-item" key={el.slug}>
                         <Link to={`/gallery/detail/${el.slug}`}>

@@ -6,10 +6,6 @@ import "./FrontPage.scss";
 import { SITE_URL, OG_IMAGE } from "src/seo";
 
 import heroImg from "../images/snippets/snippet2.png";
-import snippet1 from "../images/snippets/snippet1.png";
-import snippet3 from "../images/snippets/snippet3.png";
-import snippet4 from "../images/snippets/snippet4.png";
-import snippet6 from "../images/snippets/snippet6.png";
 
 function FrontPage2() {
     return (
@@ -41,12 +37,6 @@ function FrontPage2() {
                     <div className="hero-image">
                         <img src={heroImg} alt="Abstract painting detail by Oliver Watkins" />
                     </div>
-                </section>
-                <section className="snippet-strip">
-                    <img src={snippet1} alt="Painting detail by Oliver Watkins" />
-                    <img src={snippet3} alt="Painting detail by Oliver Watkins" />
-                    <img src={snippet4} alt="Painting detail by Oliver Watkins" />
-                    <img src={snippet6} alt="Painting detail by Oliver Watkins" />
                 </section>
             </div>
         </>
